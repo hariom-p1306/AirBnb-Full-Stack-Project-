@@ -1,0 +1,102 @@
+<% layout("/layouts/boilerplate") -%>
+
+<div class="row mt-3">
+  <div class="col-8 offset-2">
+
+    <h3>Edit your Listing</h3>
+
+    <form method="POST"
+      action="/listings/<%= listing._id %>?_method=PUT"
+      novalidate
+      class="needs-validation"
+      enctype="multipart/form-data">
+
+      <!-- Title -->
+      <div class="mb-3">
+        <label class="form-label">Title</label>
+        <input name="listing[title]"
+               value="<%= listing.title %>"
+               type="text"
+               class="form-control"
+               required>
+      </div>
+
+      <!-- Description -->
+      <div class="mb-3">
+        <label class="form-label">Description</label>
+        <textarea name="listing[description]"
+                  class="form-control"
+                  rows="4"
+                  required><%= listing.description %></textarea>
+      </div>
+
+      <!-- Category -->
+      <div class="mb-3">
+        <label class="form-label">Category</label>
+        <select name="listing[category]" class="form-select" required>
+          <option value="">-- Select Category --</option>
+
+          <% const categories = [
+            "Trending","Rooms","Iconic Cities","Mountain","Castles",
+            "Amazing Pools","Camping","Farms","Arctic","Domes","Boats"
+          ]; %>
+
+          <% categories.forEach(cat => { %>
+            <option value="<%= cat %>"
+              <%= listing.category === cat ? "selected" : "" %>>
+              <%= cat %>
+            </option>
+          <% }) %>
+        </select>
+      </div>
+
+      <!-- Old Image -->
+      <div class="mb-3">
+        <p>Original Image</p>
+        <img src="<%= listing.image.url %>" style="width:250px">
+      </div>
+
+      <!-- Image -->
+      <div class="mb-3">
+        <label class="form-label">Upload New Image</label>
+        <input name="listing[image]" type="file" class="form-control">
+      </div>
+
+      <!-- Price & Country -->
+      <div class="row">
+        <div class="mb-3 col-md-4">
+          <label class="form-label">Price</label>
+          <input name="listing[price]"
+                 type="number"
+                 value="<%= listing.price %>"
+                 class="form-control"
+                 required>
+        </div>
+
+        <div class="mb-3 col-md-8">
+          <label class="form-label">Country</label>
+          <input name="listing[country]"
+                 value="<%= listing.country %>"
+                 type="text"
+                 class="form-control"
+                 required>
+        </div>
+      </div>
+
+      <!-- Location -->
+      <div class="mb-3">
+        <label class="form-label">Location</label>
+        <input name="listing[location]"
+               value="<%= listing.location %>"
+               type="text"
+               class="form-control"
+               required>
+      </div>
+
+      <button type="submit" class="btn btn-dark mt-3">
+        Update
+      </button>
+
+    </form>
+  </div>
+</div>
