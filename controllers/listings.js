@@ -47,6 +47,8 @@ module.exports.renderNewForm = (req, res) => {
   res.render("listings/new.ejs");
 };
 
+
+
 module.exports.showListing = async (req, res) => {
   let { id } = req.params;
   const listing = await Listing.findById(id)
@@ -64,6 +66,12 @@ module.exports.showListing = async (req, res) => {
   console.log(listing);
   res.render("listings/show.ejs", { listing });
 };
+
+
+
+
+
+
 
 module.exports.createListing = async (req, res, next) => {
 

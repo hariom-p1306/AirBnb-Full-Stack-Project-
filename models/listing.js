@@ -54,6 +54,7 @@ const listingSchema = new Schema({
     
   },
 
+
  owner: {  // <-- YE ZARURI HAI
     type: Schema.Types.ObjectId,
     ref: "User",

@@ -1,8 +1,8 @@
-<style>
+<!-- <style>
     .btn-search {
         background-color: #fe424d;
         color: #fff;
-        border-radius: 25px;
+        border-radius: 50px;
         padding: 0 1.2rem 0 1.2rem;
     }
 
@@ -25,6 +25,33 @@
         border: 1px solid rgb(47, 26, 26);
 
     }
+</style> -->
+
+<style>
+
+.search-inp {
+    border-radius: 50px !important;
+    padding: 0.5rem 1.2rem !important;
+    height: 42px;
+    border: 1px solid #ddd;
+}
+
+.btn-search {
+    background-color: #fe424d;
+    color: #fff;
+    border-radius: 50px;
+    height: 42px;
+    padding: 0 1.2rem;
+    display: flex;
+    align-items: center;
+}
+
+.btn-search:hover {
+    background-color: #fe424d;
+    color: #fff;
+}
+
+
 </style>
 
 
@@ -32,44 +59,66 @@
 
 <nav class="navbar navbar-expand-md bg-body-light border-bottom sticky-top">
     <div class="container-fluid">
-        <a class="navbar-brand" href="/listings"><i class="fa-solid fa-compass"></i></a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
-            aria-controls="navbarNavAltMarkup">
+
+        <!-- Logo Always Left -->
+        <a class="navbar-brand" href="/listings">
+            <i class="fa-solid fa-compass"></i>
+        </a>
+
+        <!-- Toggle Button (Right Side Mobile) -->
+        <button class="navbar-toggler ms-auto" type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarNav"
+            aria-controls="navbarNav"
+            aria-expanded="false">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-            <div class="navbar-nav">
 
+        <!-- Navbar Items -->
+        <div class="collapse navbar-collapse" id="navbarNav">
+
+            <!-- Left side items -->
+            <div class="navbar-nav me-auto">
                 <a class="nav-link" href="/listings">Explore</a>
             </div>
 
-            <div class="navbar-nav ms-auto">
+          <!-- Desktop Search Only -->
+<div class="d-none d-md-flex mx-auto">
+    <form class="d-flex" role="search" action="/listings" method="GET">
+        <input class="form-control me-2 search-inp" type="search" name="q"
+            placeholder="Search destination" />
+        <button class="btn btn-search" type="submit">
+            <i class="fa-solid fa-magnifying-glass"></i> Search
+        </button>
+    </form>
+</div>
 
+            <!-- Right side items -->
+            <div class="navbar-nav ms-md-3">
+                <a class="nav-link" href="/listings/new">Airbnb your home</a>
 
-                <form class="d-flex" role="search" action="/listings" method="GET">
-                    <input class="form-control me-2 search-inp" type="search" name="q"
-                        placeholder="Search destination" />
-                    <button class="btn btn-search" type="submit">
-                        <i class="fa-solid fa-magnifying-glass"></i>Search
-                    </button>
-                </form>
-
-
-            </div>
-
-            <div class="navbar-nav ms-auto">
-                <a class="nav-link" href="/listings/new">
-                    Airbnb your home
-                </a>
                 <% if(!currUser){ %>
-                    <a class="nav-link " href="/signup"><b>Sign up</b></a>
-                    <a class="nav-link" href="/login"><b>Log in</b> </a>
-                    <% } %>
-                        <% if(currUser){ %>
-                            <a class="nav-link" href="/logout"><b>Log out</b></a>
-                            <% } %>
+                    <a class="nav-link" href="/signup"><b>Sign up</b></a>
+                    <a class="nav-link" href="/login"><b>Log in</b></a>
+                <% } %>
 
+                <% if(currUser){ %>
+                    <a class="nav-link" href="/logout"><b>Log out</b></a>
+                <% } %>
             </div>
+
         </div>
     </div>
 </nav>
+
+<!-- Mobile Search -->
+<div class="container mt-2 d-md-none">
+    <form class="d-flex align-items-center" role="search" action="/listings" method="GET">
+        <input class="form-control me-2 search-inp" type="search" name="q"
+            placeholder="Search destination" />
+        <button class="btn btn-search" type="submit">
+            <i class="fa-solid fa-magnifying-glass"></i> Search
+        </button>
+    </form>
+</div>
+
