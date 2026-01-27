@@ -62,77 +62,77 @@
 
         <div id="filters">
 
-            <div class="filter active">
+            <div class="filter <%= category === 'Trending' ? 'active' : '' %>">
                 <a href="/listings?category=Trending">
                     <div><i class="fa-solid fa-fire"></i></div>
                     <p>Trending</p>
                 </a>
             </div>
 
-            <div class="filter">
+            <div class="filter <%= category === 'Rooms' ? 'active' : '' %>">
                 <a href="/listings?category=Rooms">
                     <div><i class="fa-solid fa-bed"></i></div>
                     <p>Rooms</p>
                 </a>
             </div>
 
-            <div class="filter">
+            <div class="filter <%= category === 'Iconic Cities' ? 'active' : '' %>">
                 <a href="/listings?category=Iconic%20Cities">
                     <div><i class="fa-solid fa-mountain-city"></i></div>
                     <p>Iconic Cities</p>
                 </a>
             </div>
 
-            <div class="filter">
+            <div class="filter <%= category === 'Mountain' ? 'active' : '' %>">
                 <a href="/listings?category=Mountain">
                     <div><i class="fa-solid fa-mountain"></i></div>
                     <p>Mountain</p>
                 </a>
             </div>
 
-            <div class="filter">
+            <div class="filter <%= category === 'Castles' ? 'active' : '' %>">
                 <a href="/listings?category=Castles">
                     <div><i class="fa-brands fa-fort-awesome"></i></div>
                     <p>Castles</p>
                 </a>
             </div>
 
-            <div class="filter">
+            <div class="filter <%= category === 'Amazing Pools' ? 'active' : '' %>">
                 <a href="/listings?category=Amazing%20Pools">
                     <div><i class="fa-solid fa-person-swimming"></i></div>
                     <p>Amazing Pools</p>
                 </a>
             </div>
 
-            <div class="filter">
+            <div class="filter <%= category === 'Camping' ? 'active' : '' %>">
                 <a href="/listings?category=Camping">
                     <div><i class="fa-solid fa-campground"></i></div>
                     <p>Camping</p>
                 </a>
             </div>
 
-            <div class="filter">
+            <div class="filter <%= category === 'Farms' ? 'active' : '' %>">
                 <a href="/listings?category=Farms">
                     <div><i class="fa-solid fa-cow"></i></div>
                     <p>Farms</p>
                 </a>
             </div>
 
-            <div class="filter">
+            <div class="filter <%= category === 'Arctic'? 'active' : '' %>">
                 <a href="/listings?category=Arctic">
                     <div><i class="fa-brands fa-galactic-republic"></i></div>
                     <p>Arctic</p>
                 </a>
             </div>
 
-            <div class="filter">
+            <!-- <div class="filter">
                 <a href="/listings?category=Domes">
                     <div><i class="fa-solid fa-igloo"></i></div>
                     <p>Domes</p>
                 </a>
-            </div>
+            </div> -->
 
-            <div class="filter">
+            <div class="filter <%= category === 'Boats' ? 'active' : '' %>">
                 <a href="/listings?category=Boats">
                     <div><i class="fa-solid fa-sailboat"></i></div>
                     <p>Boats</p>
@@ -140,7 +140,7 @@
             </div>
 
 
-            <div class="filter">
+            <div class="filter <%= category === 'All' ? 'active' : '' %>">
                 <a href="/listings">
                     <div><i class="fa-solid fa-border-all"></i></div>
                     <p>All</p>
