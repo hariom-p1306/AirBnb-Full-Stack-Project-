@@ -5,7 +5,6 @@
             #filters {
                 display: flex;
                 flex-wrap: wrap;
-                justify-content: space-between;
                 align-items: center;
                 color: black !important;
             }
@@ -13,8 +12,10 @@
             .filters-left {
                 display: flex;
                 flex-wrap: wrap;
+                /* agar screen chhoti ho toh wrap ho jaye */
+                align-items: center;
+                gap: 5px;
             }
-
 
             .filter {
                 text-align: center;
@@ -29,7 +30,7 @@
             }
 
             .filter p {
-                font-size: 0.8rem;
+                font-size: 0.5rem;
             }
 
             .tax-info {
@@ -41,10 +42,11 @@
                 border-radius: 1rem;
                 height: 3.25rem;
                 padding: 1rem;
-                margin-left: 2rem;
+                margin-left: 1rem;
                 display: flex;
                 align-items: center;
-                /* margin-top: 1rem; */
+                margin-left: 0;
+                /* left se start ho jaaye */
             }
 
             #filters .filter a {
@@ -69,8 +71,8 @@
         </style>
 
         <div id="filters">
-            <div class="filters-left">
 
+            <div class="filters-left">
                 <div class="filter <%= category === 'Trending' ? 'active' : '' %>">
                     <a href="/listings?category=Trending">
                         <div><i class="fa-solid fa-fire"></i></div>
@@ -134,12 +136,12 @@
                     </a>
                 </div>
 
-                <div class="filter <%= category === 'Domes'? 'active' : '' %>">
-                    <a href="/listings?category=Domes">
-                        <div><i class="fa-solid fa-igloo"></i></div>
-                        <p>Domes</p>
-                    </a>
-                </div>
+                <!-- <div class="filter">
+                <a href="/listings?category=Domes">
+                    <div><i class="fa-solid fa-igloo"></i></div>
+                    <p>Domes</p>
+                </a>
+            </div> -->
 
                 <div class="filter <%= category === 'Boats' ? 'active' : '' %>">
                     <a href="/listings?category=Boats">
