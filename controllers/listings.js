@@ -1,17 +1,46 @@
+// const Listing = require("../models/listing");
+// module.exports.index = async (req, res) => {
+//   const { category } = req.query;
+
+//   let allListings;
+
+//   if (category) {
+//     allListings = await Listing.find({ category });
+//   } else {
+//     allListings = await Listing.find({});
+//   }
+
+//   res.render("listings/index", { allListings,category });
+// };
+
+
+
 const Listing = require("../models/listing");
+
 module.exports.index = async (req, res) => {
-  const { category } = req.query;
+  const { category, q } = req.query;
 
-  let allListings;
+  let filter = {};
 
+  // category filter
   if (category) {
-    allListings = await Listing.find({ category });
-  } else {
-    allListings = await Listing.find({});
+    filter.category = category;
   }
 
-  res.render("listings/index", { allListings,category });
+  // search filter (location / title)
+  if (q) {
+    filter.$or = [
+      { location: { $regex: q, $options: "i" } },
+      { title: { $regex: q, $options: "i" } },
+      { country: { $regex: q, $options: "i" } }
+    ];
+  }
+
+  const allListings = await Listing.find(filter);
+
+  res.render("listings/index", { allListings, category, q });
 };
+
 
 
 module.exports.renderNewForm = (req, res) => {

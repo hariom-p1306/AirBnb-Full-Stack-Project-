@@ -56,6 +56,27 @@ router.get(
 
 
 
+// router.get("/search", wrapAsync(async (req, res) => {
+//     const { q } = req.query;
+
+//     if (!q) {
+//         return res.redirect("/listings");
+//     }
+
+//     const listings = await Listing.find({
+//         $or: [
+//             { location: { $regex: q, $options: "i" } },
+//             { country: { $regex: q, $options: "i" } },
+//             { title: { $regex: q, $options: "i" } }
+//         ]
+//     });
+
+//     res.render("listings/index", { listings });
+// }));
+
+
+
+
 
 module.exports = router;
 
