@@ -51,6 +51,7 @@ const listingSchema = new Schema({
       "Camping",
       "Farms",
       "Arctic",
+      "Domes",
       "Boats"
     ]
     
