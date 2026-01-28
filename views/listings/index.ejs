@@ -1,6 +1,7 @@
 <% layout('/layouts/boilerplate') -%>
 
     <body>
+
         <style>
             #filters {
                 display: flex;
@@ -89,7 +90,25 @@
                     height: 140px;
                 }
             }
+
+
+            .old-price {
+    margin-right: 6px;
+}
+
+.old-price.cut {
+    text-decoration: line-through;
+    color: gray;
+}
+
+.new-price {
+    font-weight: 600;
+    color: #198754; /* green */
+}
+
         </style>
+
+        <!-- ================= FILTER SECTION ================= -->
 
         <div id="filters">
 
@@ -160,56 +179,80 @@
                         <p>All</p>
                     </a>
                 </div>
-
-            </div>
-
-            <div class="tax-toggle">
-                <div class="form-check-reverse form-switch">
-                    <input class="form-check-input" type="checkbox" role="switch" id="switchCheckDefault">
-                    <label class="form-check-label" for="switchCheckDefault">
-                        Display total after taxes
-                    </label>
+                <!-- TAX TOGGLE -->
+                <div class="tax-toggle">
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" id="taxSwitch">
+                        <label class="form-check-label" for="taxSwitch">
+                            Display total after taxes
+                        </label>
+                    </div>
                 </div>
+
             </div>
 
+            <!-- ================= LISTINGS ================= -->
+
+            <div class="row g-3 mt-3">
+
+                <% for(let listing of allListings) { %>
+                    <div class="col-12 col-md-6 col-lg-4">
+
+                        <a href="/listings/<%= listing._id %>" class="listing_link">
+
+                            <div class="card h-100">
+
+                                <img src="<%= listing.image.url %>" class="card-img-top">
+
+                                <div class="card-body">
+                                    <p class="card-text fw-semibold">
+                                        <%= listing.title %>
+                                    </p>
+
+                                    <span class="old-price price" data-price="<%= listing.price %>">
+                                        &#8377;<%= listing.price %>
+                                    </span>
+
+                                    <span class="new-price"></span>
+                                    /night
 
 
-        </div>
+                                </div>
 
-
-        <div class="row g-3 mt-3">
-            <% for(let listing of allListings) { %>
-                <div class="col-4 col-md-4 col-lg-4">
-                    <a href="/listings/<%= listing._id %>" class="listing_link">
-                        <div class="card listing-card h-100">
-                            <img src="<%= listing.image.url %>" class="card-img-top img-fluid" alt="listing_image" />
-
-                            <div class="card-body">
-                                <p class="card-text">
-                                    <%= listing.title %>
-                                </p>
-                                &#8377;<%= listing.price ? listing.price : 'N/A' %>/night
-                                    <i class="tax-info">&nbsp;+18% GST</i>
                             </div>
-                        </div>
-                    </a>
-                </div>
-                <% } %>
-        </div>
 
+                        </a>
 
+                    </div>
+                    <% } %>
+
+            </div>
 
     </body>
 
+    <!-- ================= SCRIPT ================= -->
+
     <script>
-        let taxSwitch = document.getElementById("switchCheckDefault");
+    const taxSwitch = document.getElementById("taxSwitch");
+    const prices = document.getElementsByClassName("price");
+    const newPrices = document.getElementsByClassName("new-price");
 
-        taxSwitch.addEventListener("change", () => {
-            let taxInfo = document.getElementsByClassName("tax-info");
+    taxSwitch.addEventListener("change", () => {
 
-            for (let info of taxInfo) {
-                info.style.display = taxSwitch.checked ? "inline" : "none";
+        for (let i = 0; i < prices.length; i++) {
+
+            const basePrice = Number(prices[i].dataset.price);
+
+            if (taxSwitch.checked) {
+                const totalPrice = Math.round(basePrice * 1.18);
+
+                prices[i].classList.add("cut"); // 🔥 old price cut
+                newPrices[i].innerHTML = `&#8377;${totalPrice} <small>(incl. 18% GST)</small>`;
+            } else {
+                prices[i].classList.remove("cut"); // 🔄 reset
+                newPrices[i].innerHTML = "";
             }
-        });
+        }
 
-    </script>
+    });
+</script>

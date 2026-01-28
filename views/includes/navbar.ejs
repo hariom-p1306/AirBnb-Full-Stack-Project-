@@ -94,18 +94,25 @@
 </div>
 
             <!-- Right side items -->
-            <div class="navbar-nav ms-md-3">
-                <a class="nav-link" href="/listings/new">Airbnb your home</a>
+<div class="navbar-nav ms-md-3">
+    <a class="nav-link" href="/listings/new">Airbnb your home</a>
 
-                <% if(!currUser){ %>
-                    <a class="nav-link" href="/signup"><b>Sign up</b></a>
-                    <a class="nav-link" href="/login"><b>Log in</b></a>
-                <% } %>
+    <% if(!currUser){ %>
+        <a class="nav-link" href="/signup"><b>Sign up</b></a>
+        <a class="nav-link" href="/login"><b>Log in</b></a>
+    <% } %>
 
-                <% if(currUser){ %>
-                    <a class="nav-link" href="/logout"><b>Log out</b></a>
-                <% } %>
-            </div>
+    <% if(currUser){ %>
+        <a class="nav-link" href="/bookings/my">My Bookings</a>
+
+        <a class="nav-link" href="/bookings/host/dashboard">
+            Host Dashboard
+        </a>
+
+        <a class="nav-link" href="/logout"><b>Log out</b></a>
+    <% } %>
+</div>
+
 
         </div>
     </div>

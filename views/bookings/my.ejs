@@ -1,0 +1,38 @@
+<% layout('layouts/boilerplate') -%>
+
+<body>
+<div class="col-8 offset-2 mt-4">
+  <h3>My Bookings</h3>
+
+  <% if(bookings.length === 0){ %>
+    <p>No bookings yet.</p>
+  <% } %>
+
+  <% bookings.forEach(b => { %>
+    <div class="card mb-3">
+      <div class="card-body">
+
+        <h5><%= b.listing.title %></h5>
+        <p><b>Host:</b> <%= b.host.username %></p>
+
+        <p>
+          <b>Status:</b>
+          <% if(b.status === "pending"){ %>
+            <span class="badge bg-warning text-dark">Pending</span>
+          <% } %>
+
+          <% if(b.status === "accepted"){ %>
+            <span class="badge bg-success">Accepted</span>
+          <% } %>
+
+          <% if(b.status === "rejected"){ %>
+            <span class="badge bg-danger">Rejected</span>
+          <% } %>
+        </p>
+
+      </div>
+    </div>
+  <% }) %>
+</div>
+
+</body>
