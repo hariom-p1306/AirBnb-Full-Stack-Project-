@@ -1,258 +1,232 @@
 <% layout('/layouts/boilerplate') -%>
 
-    <body>
+<body>
 
-        <style>
-            #filters {
-                display: flex;
-                flex-wrap: wrap;
-                align-items: center;
-                color: black !important;
-            }
+<style>
+    /* ================= FILTERS ================= */
 
-            .filters-left {
-                display: flex;
-                flex-wrap: wrap;
-                /* agar screen chhoti ho toh wrap ho jaye */
-                align-items: center;
-                gap: 5px;
-            }
+    #filters {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        color: black !important;
+    }
 
-            .filter {
-                text-align: center;
-                margin-right: 1.2rem;
-                margin-top: 1.2rem;
-                opacity: 0.6;
-            }
+    .filters-left {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 5px;
+    }
 
-            .filter:hover {
-                opacity: 1;
-                cursor: pointer;
-            }
+    .filter {
+        text-align: center;
+        margin-right: 1.2rem;
+        margin-top: 1.2rem;
+        opacity: 0.6;
+    }
 
-            .filter p {
-                font-size: 0.7rem;
-            }
+    .filter:hover {
+        opacity: 1;
+        cursor: pointer;
+    }
 
-            .tax-info {
-                display: none;
-            }
+    .filter p {
+        font-size: 0.7rem;
+    }
 
-            .tax-toggle {
-                border: 1px solid black;
-                border-radius: 1rem;
-                height: 3.25rem;
-                padding: 1rem;
-                margin-left: 1rem;
-                display: flex;
-                align-items: center;
-                margin-left: 0;
-                /* left se start ho jaaye */
-            }
+    #filters .filter a {
+        color: black;
+        text-decoration: none;
+    }
 
-            #filters .filter a {
-                color: black;
-                text-decoration: none;
-            }
+    .filter.active {
+        border-bottom: 2px solid black;
+        font-weight: 600;
+    }
 
-            #filters .filter a:hover {
-                color: black;
-            }
+    /* ================= TAX TOGGLE ================= */
 
-            #filters .filter a i {
-                color: black;
-            }
+    .tax-toggle {
+        border: 1px solid black;
+        border-radius: 1rem;
+        height: 3.25rem;
+        padding: 1rem;
+        display: flex;
+        align-items: center;
+        margin-top: 1.2rem;
+    }
 
+    /* ================= CARDS ================= */
 
+    .card-img-top {
+        width: 100%;
+        height: 250px;
+        object-fit: cover;
+    }
 
-            .filter.active {
-                border-bottom: 2px solid black;
-                font-weight: 600;
-            }
+    @media (max-width: 992px) {
+        .card-img-top {
+            height: 200px;
+        }
+    }
 
+    @media (max-width: 576px) {
+        .card-img-top {
+            height: 140px;
+        }
+    }
 
-            .card-img-top {
-                width: 100%;
-                height: 250px;
-                object-fit: cover;
-            }
+    /* ================= PRICE EFFECT ================= */
 
-            /* Tablet */
-            @media (max-width: 992px) {
-                .card-img-top {
-                    height: 200px;
-                }
-            }
+    .old-price.cut {
+        text-decoration: line-through;
+        color: gray;
+    }
 
-            /* Mobile */
-            @media (max-width: 576px) {
-                .card-img-top {
-                    height: 140px;
-                }
-            }
+    .new-price {
+        font-weight: 600;
+        color: #198754; /* green */
+        margin-left: 6px;
+    }
+</style>
 
+<!-- ================= FILTER SECTION ================= -->
 
-            .old-price {
-    margin-right: 6px;
-}
+<div id="filters">
+    <div class="filters-left">
 
-.old-price.cut {
-    text-decoration: line-through;
-    color: gray;
-}
+        <div class="filter <%= category === 'Trending' ? 'active' : '' %>">
+            <a href="/listings?category=Trending">
+                <div><i class="fa-solid fa-fire"></i></div>
+                <p>Trending</p>
+            </a>
+        </div>
 
-.new-price {
-    font-weight: 600;
-    color: #198754; /* green */
-}
+        <div class="filter <%= category === 'Rooms' ? 'active' : '' %>">
+            <a href="/listings?category=Rooms">
+                <div><i class="fa-solid fa-bed"></i></div>
+                <p>Rooms</p>
+            </a>
+        </div>
 
-        </style>
+        <div class="filter <%= category === 'Iconic Cities' ? 'active' : '' %>">
+            <a href="/listings?category=Iconic%20Cities">
+                <div><i class="fa-solid fa-mountain-city"></i></div>
+                <p>Iconic Cities</p>
+            </a>
+        </div>
 
-        <!-- ================= FILTER SECTION ================= -->
+        <div class="filter <%= category === 'Mountain' ? 'active' : '' %>">
+            <a href="/listings?category=Mountain">
+                <div><i class="fa-solid fa-mountain"></i></div>
+                <p>Mountain</p>
+            </a>
+        </div>
 
-        <div id="filters">
+        <div class="filter <%= category === 'Amazing Pools' ? 'active' : '' %>">
+            <a href="/listings?category=Amazing%20Pools">
+                <div><i class="fa-solid fa-person-swimming"></i></div>
+                <p>Amazing Pools</p>
+            </a>
+        </div>
 
-            <div class="filters-left">
-                <div class="filter <%= category === 'Trending' ? 'active' : '' %>">
-                    <a href="/listings?category=Trending">
-                        <div><i class="fa-solid fa-fire"></i></div>
-                        <p>Trending</p>
-                    </a>
-                </div>
+        <div class="filter <%= category === 'Camping' ? 'active' : '' %>">
+            <a href="/listings?category=Camping">
+                <div><i class="fa-solid fa-campground"></i></div>
+                <p>Camping</p>
+            </a>
+        </div>
 
-                <div class="filter <%= category === 'Rooms' ? 'active' : '' %>">
-                    <a href="/listings?category=Rooms">
-                        <div><i class="fa-solid fa-bed"></i></div>
-                        <p>Rooms</p>
-                    </a>
-                </div>
+        <div class="filter <%= category === 'Farms' ? 'active' : '' %>">
+            <a href="/listings?category=Farms">
+                <div><i class="fa-solid fa-cow"></i></div>
+                <p>Farms</p>
+            </a>
+        </div>
 
-                <div class="filter <%= category === 'Iconic Cities' ? 'active' : '' %>">
-                    <a href="/listings?category=Iconic%20Cities">
-                        <div><i class="fa-solid fa-mountain-city"></i></div>
-                        <p>Iconic Cities</p>
-                    </a>
-                </div>
+        <div class="filter <%= category === 'Boats' ? 'active' : '' %>">
+            <a href="/listings?category=Boats">
+                <div><i class="fa-solid fa-sailboat"></i></div>
+                <p>Boats</p>
+            </a>
+        </div>
 
-                <div class="filter <%= category === 'Mountain' ? 'active' : '' %>">
-                    <a href="/listings?category=Mountain">
-                        <div><i class="fa-solid fa-mountain"></i></div>
-                        <p>Mountain</p>
-                    </a>
-                </div>
+        <div class="filter <%= category === 'All' ? 'active' : '' %>">
+            <a href="/listings">
+                <div><i class="fa-solid fa-border-all"></i></div>
+                <p>All</p>
+            </a>
+        </div>
 
+        <!-- TAX TOGGLE -->
+        <div class="tax-toggle">
+            <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" id="taxSwitch">
+                <label class="form-check-label" for="taxSwitch">
+                    Display total after taxes
+                </label>
+            </div>
+        </div>
 
-                <div class="filter <%= category === 'Amazing Pools' ? 'active' : '' %>">
-                    <a href="/listings?category=Amazing%20Pools">
-                        <div><i class="fa-solid fa-person-swimming"></i></div>
-                        <p>Amazing Pools</p>
-                    </a>
-                </div>
+    </div>
+</div>
 
-                <div class="filter <%= category === 'Camping' ? 'active' : '' %>">
-                    <a href="/listings?category=Camping">
-                        <div><i class="fa-solid fa-campground"></i></div>
-                        <p>Camping</p>
-                    </a>
-                </div>
+<!-- ================= LISTINGS ================= -->
 
-                <div class="filter <%= category === 'Farms' ? 'active' : '' %>">
-                    <a href="/listings?category=Farms">
-                        <div><i class="fa-solid fa-cow"></i></div>
-                        <p>Farms</p>
-                    </a>
-                </div>
+<div class="row g-3 mt-3">
 
+    <% for(let listing of allListings) { %>
+        <div class="col-12 col-md-6 col-lg-4">
 
+            <a href="/listings/<%= listing._id %>" class="listing_link">
 
-                <div class="filter <%= category === 'Boats' ? 'active' : '' %>">
-                    <a href="/listings?category=Boats">
-                        <div><i class="fa-solid fa-sailboat"></i></div>
-                        <p>Boats</p>
-                    </a>
-                </div>
+                <div class="card h-100">
+                    <img src="<%= listing.image.url %>" class="card-img-top">
 
+                    <div class="card-body">
+                        <p class="card-text fw-semibold">
+                            <%= listing.title %>
+                        </p>
 
-                <div class="filter <%= category === 'All' ? 'active' : '' %>">
-                    <a href="/listings">
-                        <div><i class="fa-solid fa-border-all"></i></div>
-                        <p>All</p>
-                    </a>
-                </div>
-                <!-- TAX TOGGLE -->
-                <div class="tax-toggle">
-                    <div class="form-check form-switch">
-                        <input class="form-check-input" type="checkbox" id="taxSwitch">
-                        <label class="form-check-label" for="taxSwitch">
-                            Display total after taxes
-                        </label>
+                        <span class="old-price price" data-price="<%= listing.price %>">
+                            &#8377;<%= listing.price %>
+                        </span>
+
+                        <span class="new-price"></span>
+                        /night
                     </div>
                 </div>
 
-            </div>
+            </a>
 
-            <!-- ================= LISTINGS ================= -->
+        </div>
+    <% } %>
 
-            <div class="row g-3 mt-3">
+</div>
 
-                <% for(let listing of allListings) { %>
-                    <div class="col-12 col-md-6 col-lg-4">
+</body>
 
-                        <a href="/listings/<%= listing._id %>" class="listing_link">
+<!-- ================= SCRIPT ================= -->
 
-                            <div class="card h-100">
-
-                                <img src="<%= listing.image.url %>" class="card-img-top">
-
-                                <div class="card-body">
-                                    <p class="card-text fw-semibold">
-                                        <%= listing.title %>
-                                    </p>
-
-                                    <span class="old-price price" data-price="<%= listing.price %>">
-                                        &#8377;<%= listing.price %>
-                                    </span>
-
-                                    <span class="new-price"></span>
-                                    /night
-
-
-                                </div>
-
-                            </div>
-
-                        </a>
-
-                    </div>
-                    <% } %>
-
-            </div>
-
-    </body>
-
-    <!-- ================= SCRIPT ================= -->
-
-    <script>
+<script>
     const taxSwitch = document.getElementById("taxSwitch");
     const prices = document.getElementsByClassName("price");
     const newPrices = document.getElementsByClassName("new-price");
 
     taxSwitch.addEventListener("change", () => {
-
         for (let i = 0; i < prices.length; i++) {
-
             const basePrice = Number(prices[i].dataset.price);
 
             if (taxSwitch.checked) {
                 const totalPrice = Math.round(basePrice * 1.18);
-
-                prices[i].classList.add("cut"); // 🔥 old price cut
-                newPrices[i].innerHTML = `&#8377;${totalPrice} <small>(incl. 18% GST)</small>`;
+                prices[i].classList.add("cut");
+                newPrices[i].innerHTML =
+                    `&#8377;${totalPrice} <small>(incl. 18% GST)</small>`;
             } else {
-                prices[i].classList.remove("cut"); // 🔄 reset
+                prices[i].classList.remove("cut");
                 newPrices[i].innerHTML = "";
             }
         }
-
     });
 </script>
