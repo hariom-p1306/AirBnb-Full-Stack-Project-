@@ -67,19 +67,19 @@
 
 
 
-// function initMap() {
-//   const location = { lat: 28.6139, lng: 77.2090 }; // Delhi (test)
+function initMap() {
+  const location = { lat: 28.6139, lng: 77.2090 }; // Delhi (test)
 
-//   const map = new google.maps.Map(document.getElementById("map"), {
-//     zoom: 10,
-//     center: location,
-//   });
+  const map = new google.maps.Map(document.getElementById("map"), {
+    zoom: 10,
+    center: location,
+  });
 
-//   new google.maps.Marker({
-//     position: location,
-//     map: map,
-//   });
-// }
+  new google.maps.Marker({
+    position: location,
+    map: map,
+  });
+}
 
 
   // Booking AJAX
@@ -122,11 +122,11 @@
     });
   }
 
-  // Map initialization
-  function initMap() {
-    const location = { lat: 28.6139, lng: 77.2090 }; // Delhi default
-    const map = new google.maps.Map(document.getElementById("map"), { zoom: 10, center: location });
-    new google.maps.Marker({ position: location, map: map });
-  }
+  // // Map initialization
+  // function initMap() {
+  //   const location = { lat: 28.6139, lng: 77.2090 }; // Delhi default
+  //   const map = new google.maps.Map(document.getElementById("map"), { zoom: 10, center: location });
+  //   new google.maps.Marker({ position: location, map: map });
+  // }
 
 
