@@ -13,6 +13,7 @@ const ejsMate = require("ejs-mate");
 const wrapAsync = require("./utils/wrapAsync.js");
 const ExpressError = require("./utils/ExpressError.js");
 
+
 const{ListingSchema,reviewSchema} = require("./schema.js");
 const Reviews = require("./models/review.js");
 app.use(express.urlencoded({ extended: true }));

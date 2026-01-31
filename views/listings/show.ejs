@@ -82,7 +82,7 @@
 
     <!-- Booking Section -->
     <% if(currUser && !listing.owner._id.equals(currUser._id)) { %>
-      <form id="bookingForm" action="/bookings/<%= listing._id %>" method="POST">
+      <form id="bookingForm" data-listing-id="<%= listing._id %>">
         <label>Check-in</label>
         <input type="date" name="checkIn" required>
 

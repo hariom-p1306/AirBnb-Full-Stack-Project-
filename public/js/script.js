@@ -43,7 +43,8 @@ function initMap() {
   if(bookingForm) {
     bookingForm.addEventListener("submit", async (e) => {
       e.preventDefault();
-      const listingId = "<%= listing._id %>";
+      // const listingId = "<%= listing._id %>";
+      const listingId = bookingForm.dataset.listingId;
       const checkIn = bookingForm.checkIn.value;
       const checkOut = bookingForm.checkOut.value;
 
