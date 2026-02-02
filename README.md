@@ -131,10 +131,15 @@ npm install
 Create a .env file and add:
 
 MONGO_URI=your_mongodb_connection_string
+
 SESSION_SECRET=your_secret_key
+
 GOOGLE_MAPS_API_KEY=your_api_key
+
 CLOUDINARY_CLOUD_NAME=your_cloud_name
+
 CLOUDINARY_KEY=your_key
+
 CLOUDINARY_SECRET=your_secret
 
 
@@ -177,4 +182,5 @@ Performance optimization
 
 Hariom Patel
 LinkedIn: (https://www.linkedin.com/in/hariom-patel-dev)
+
 Portfolio: https://portfolio-one-navy-20.vercel.app/
