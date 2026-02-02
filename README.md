@@ -107,12 +107,19 @@ Protected routes are accessible only to logged-in users
 📁 Project Structure
 airbnb/
 │
-├── public/          # Static files (CSS, JS)
+
+├── public/ # Static files (CSS, JS)
+
 ├── routes/          # Express route handlers
+
 ├── views/           # EJS templates
+
 ├── middleware/      # Custom route protection logic
+
 ├── utils/           # Error handling & async wrapper
+
 ├── app.js           # Main server file
+
 └── package.json
 
 
