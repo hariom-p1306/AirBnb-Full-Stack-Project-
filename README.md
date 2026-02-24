@@ -6,64 +6,26 @@ This project focuses on real-world backend workflows, authentication, role-based
 
 🚀 Live Demo
 
-🔗 https://airbnb-full-stack-project-e7eq.onrender.com/listings
-
-⚠️ Note: Initial load may take a few seconds because the app is hosted on a free server.
+🚀 Live Demo: [Click Here](https://airbnb-full-stack-project-e7eq.onrender.com/listings)
+📂 GitHub Repo: [Click Here](https://github.com/hariom-p1306/AirBnb-Full-Stack-Project-)
+⚠️ Note: Initial load may take a few seconds due to free server hosting.
 
 🛠️ Tech Stack
-Frontend
 
-HTML
-
-CSS
-
-JavaScript
-
-EJS (Embedded JavaScript Templates)
-
-Bootstrap
-
-Backend
-
-Node.js
-
-Express.js
-
-MongoDB
-
-Mongoose
-
-Passport.js (Session-based Authentication)
-
-External Services
-
-Cloudinary (Image Uploads)
-
-Google Maps API (Location Integration)
-
-Render (Deployment)
-
-
+Frontend: HTML, CSS, JavaScript, EJS, Bootstrap
+Backend: Node.js, Express.js, MongoDB, Mongoose, Passport.js
+External Services: Cloudinary, Google Maps API, Render (Deployment)
 
 ## ✨ Key Features
 
-- User Authentication (Signup / Login / Logout)
-- Password hashing using Passport
-- Session-based authentication
+✨ Key Features
+- User Authentication (Signup/Login/Logout) with session management
 - Role-based access (Host & Guest)
-- Create, Edit & Delete Property Listings
-- Secure image upload with Cloudinary
-- Booking Request System:
-  - Guest sends booking request
-  - Host can Accept / Reject
-  - Booking status updates dynamically
-- Guest & Host Dashboards
-- Flash messages & form validation
-- Search listings by city
-- Advanced listing filters (price range, guest count, etc.)
-- Secure routes using custom middleware
-- MVC Architecture implementation
-- Centralized error handling using custom utilities
+- CRUD Property Listings with secure image uploads via Cloudinary
+- Booking system: request, accept/reject, dynamic status updates
+- Dashboards for Guests & Hosts
+- Search & filter listings (city, price, guest count)
+- Flash messages, form validation & secure route protection
 
 ## 🔍 Search & Filtering
 
@@ -189,5 +151,4 @@ Performance optimization
 
 Hariom Patel
 LinkedIn: (https://www.linkedin.com/in/hariom-patel-dev)
-
 Portfolio: https://portfolio-one-navy-20.vercel.app/
