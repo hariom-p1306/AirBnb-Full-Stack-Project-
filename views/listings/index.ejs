@@ -198,21 +198,18 @@ box-shadow:0 12px 30px rgba(0,0,0,0.15);
             cursor: pointer;
         }
 
-        /* .wishlist-icon i {
-            color: #ff385c;
-            font-size: 16px;
-        } */
-
-        .wishlist-icon:hover {
-            transform: scale(1.1);
-        }
-
         .wishlist-icon i {
             color: #bbb;
+            font-size: 16px;
+            transition: 0.2s;
         }
 
         .wishlist-icon.active i {
-            color: #ff385c;
+            color: #ff385c !important;
+        }
+
+        .wishlist-icon:hover {
+            transform: scale(1.1);
         }
     </style>
 
@@ -323,49 +320,51 @@ box-shadow:0 12px 30px rgba(0,0,0,0.15);
 
                             <div class="card-img-container">
 
-                                <img src="<%= listing.image.url %>" class="card-img-top">
+                                <a href="/listings/<%= listing._id %>" class="listing_link">
+                                    <img src="<%= listing.image.url %>" class="card-img-top">
+                                </a>
 
                                 <div class="wishlist-icon" data-id="<%= listing._id %>">
-                                    <i class="fa-solid fa-heart"></i>
+                                    <i class="fa-regular fa-heart"></i>
                                 </div>
 
                                 <div class="rating-badge">
-
                                     <i class="fa-solid fa-star"></i>
-
                                     <%= listing.avgRating %>
-
                                 </div>
 
                             </div>
 
+                            <a href="/listings/<%= listing._id %>" class="listing_link">
 
-                            <div class="card-body">
 
-                                <p class="card-text mb-1">
-                                    <b>
-                                        <%= listing.title %>
-                                    </b>
-                                </p>
 
-                                <p class="text-muted small mb-1">
-                                    <i class="fa-solid fa-location-dot"></i>
-                                    <%= listing.location %>
-                                </p>
+                                <div class="card-body">
 
-                                <span class="old-price price" data-price="<%= listing.price %>">
+                                    <p class="card-text mb-1">
+                                        <b>
+                                            <%= listing.title %>
+                                        </b>
+                                    </p>
 
-                                    &#8377;<%= listing.price %>
+                                    <p class="text-muted small mb-1">
+                                        <i class="fa-solid fa-location-dot"></i>
+                                        <%= listing.location %>
+                                    </p>
 
-                                </span>
+                                    <span class="old-price price" data-price="<%= listing.price %>">
 
-                                <span class="new-price"></span>
+                                        &#8377;<%= listing.price %>
 
-                                <span class="text-muted">
-                                    / night
-                                </span>
+                                    </span>
 
-                            </div>
+                                    <span class="new-price"></span>
+
+                                    <span class="text-muted">
+                                        / night
+                                    </span>
+
+                                </div>
 
                         </div>
 
@@ -385,12 +384,32 @@ box-shadow:0 12px 30px rgba(0,0,0,0.15);
 
         document.querySelectorAll(".wishlist-icon").forEach(icon => {
 
-            icon.addEventListener("click", async (e) => {
+            icon.addEventListener("click", async function (e) {
 
                 e.preventDefault();
                 e.stopPropagation();
 
-                const listingId = icon.dataset.id;
+                const heart = this.querySelector("i");
+
+                heart.classList.toggle("fa-solid");
+                heart.classList.toggle("fa-regular");
+
+                this.classList.toggle("active");
+
+            });
+
+        });
+
+
+        document.querySelectorAll(".wishlist-icon").forEach(icon => {
+
+            icon.addEventListener("click", async function (e) {
+
+                e.preventDefault();
+                e.stopPropagation();
+
+                const listingId = this.dataset.id;
+                const heart = this.querySelector("i");
 
                 try {
 
@@ -401,7 +420,11 @@ box-shadow:0 12px 30px rgba(0,0,0,0.15);
                     const data = await res.json();
 
                     if (data.success) {
-                        icon.classList.toggle("active");
+
+                        heart.classList.toggle("fa-solid");
+                        heart.classList.toggle("fa-regular");
+
+                        this.classList.toggle("active");
                     }
 
                 } catch (err) {
