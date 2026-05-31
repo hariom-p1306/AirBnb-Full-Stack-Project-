@@ -1,154 +1,358 @@
-🏠 Airbnb Clone – Full Stack Booking Platform
+# 🏠 StayEase – Full Stack Property Listing & Booking Platform
 
-A full-stack Airbnb-style web application where users can list properties, send booking requests, and manage bookings as hosts or guests.
+A production-inspired full-stack property listing and booking platform built using Node.js, Express.js, MongoDB, and EJS.
 
-This project focuses on real-world backend workflows, authentication, role-based access control, and MVC architecture.
+The platform enables users to discover properties, manage listings, submit booking requests, review properties, and interact through a complete host–guest workflow. The application is designed following industry-standard MVC architecture and focuses on authentication, authorization, booking management, cloud integrations, and scalable backend development.
 
-🚀 Live Demo
+---
 
-🚀 Live Demo: [Click Here](https://airbnb-full-stack-project-e7eq.onrender.com/listings)
-📂 GitHub Repo: [Click Here](https://github.com/hariom-p1306/AirBnb-Full-Stack-Project-)
-⚠️ Note: Initial load may take a few seconds due to free server hosting.
+# 🚀 Live Demo
 
-🛠️ Tech Stack
+### 🌐 Live Application
 
-Frontend: HTML, CSS, JavaScript, EJS, Bootstrap
-Backend: Node.js, Express.js, MongoDB, Mongoose, Passport.js
-External Services: Cloudinary, Google Maps API, Render (Deployment)
+https://airbnb-full-stack-project-e7eq.onrender.com/listings
 
-## ✨ Key Features
+### 📂 GitHub Repository
 
-✨ Key Features
-- User Authentication (Signup/Login/Logout) with session management
-- Role-based access (Host & Guest)
-- CRUD Property Listings with secure image uploads via Cloudinary
-- Booking system: request, accept/reject, dynamic status updates
-- Dashboards for Guests & Hosts
-- Search & filter listings (city, price, guest count)
-- Flash messages, form validation & secure route protection
+https://github.com/hariom-p1306/AirBnb-Full-Stack-Project-
 
-## 🔍 Search & Filtering
+> ⚠️ Note: Initial load may take a few seconds because the application is hosted on Render's free tier.
 
-Users can search for listings based on city name.  
-Additionally, the application supports advanced filtering options — such as price range and number of guests — to refine results.
+---
 
-This enhances user experience and makes browsing listings more intuitive.
+# ✨ Key Features
 
+## 🔐 Authentication & Authorization
 
+* Secure user registration and login
+* Session-based authentication using Passport.js
+* Password hashing and credential validation
+* Protected routes for authenticated users
+* Authorization middleware for resource ownership validation
 
-🧠 Application Architecture
+---
 
-This application follows the MVC (Model-View-Controller) pattern:
+## 🏠 Property Listing Management
 
-Models → Define MongoDB schemas (User, Listing, Booking, Review)
+* Create, update, and delete property listings
+* Property categorization support
+* Cloudinary-based image upload and management
+* Detailed property information pages
+* Responsive property cards and layouts
 
-Routes → Handle request endpoints
+---
 
-Controllers (inside routes) → Manage business logic
+## 📅 Booking Management System
 
-Views → Render dynamic UI using EJS
+* Guest booking request workflow
+* Host booking approval dashboard
+* Booking acceptance and rejection system
+* Dynamic booking status management
+* Guest booking tracking dashboard
 
-Middleware → Protect routes & validate permissions
+### Booking Flow
 
-Utils → Centralized error handling & async wrappers
+```text
+Guest Request
+       ↓
+    Pending
+       ↓
+Host Accept / Reject
+       ↓
+Accepted / Rejected
+```
 
-🔐 Authentication Flow
+---
 
-User registers or logs in
+## ⭐ Reviews & Ratings
 
-Password is securely hashed before storage
+* Property review system
+* Individual user reviews
+* Average rating calculation
+* Review ownership protection
+* Dynamic rating display
 
-Passport Local Strategy verifies credentials
+---
 
-Session is created upon successful login
+## 🔍 Search & Discovery
 
-Session cookie maintains authentication state
+* Search properties by location
+* Enhanced property browsing experience
+* Fast property discovery workflow
 
-Protected routes are accessible only to logged-in users
+---
 
-📁 Project Structure
-airbnb/
+## 🌎 Maps Integration
+
+* Google Maps API integration
+* Property location visualization
+* Interactive map display
+
+---
+
+## 🎨 User Experience
+
+* Responsive UI design
+* Bootstrap-powered components
+* Flash messages and notifications
+* Client-side form validation
+* Improved booking workflow
+
+---
+
+# 🛠 Tech Stack
+
+## Frontend
+
+* HTML5
+* CSS3
+* JavaScript
+* EJS
+* Bootstrap
+
+## Backend
+
+* Node.js
+* Express.js
+* MongoDB
+* Mongoose
+
+## Authentication
+
+* Passport.js
+* Express Session
+
+## External Services
+
+* Cloudinary
+* Google Maps API
+
+## Deployment
+
+* Render
+* MongoDB Atlas
+
+---
+
+# 🏗️ Architecture Diagram
+
+```mermaid
+flowchart TD
+
+    A[Guest / Host User] --> B[EJS Frontend]
+
+    B --> C[Express.js Routes]
+
+    C --> D[Authentication Module]
+    C --> E[Property Listings Module]
+    C --> F[Booking Management Module]
+    C --> G[Review & Rating Module]
+    C --> H[Wishlist Module]
+
+    D --> I[Passport.js]
+    I --> J[Session Store]
+
+    E --> K[Cloudinary Image Uploads]
+    E --> L[Google Maps API]
+
+    F --> M[Booking Workflow]
+    M --> N[Accept / Reject Requests]
+
+    G --> O[Average Rating Calculation]
+
+    C --> P[Mongoose ORM]
+
+    P --> Q[(MongoDB Atlas)]
+
+    Q --> E
+    Q --> F
+    Q --> G
+    Q --> H
+```
+
+---
+
+# 🎯 System Design Highlights
+
+* Implemented MVC Architecture for maintainable code organization.
+* Designed role-based workflows separating Host and Guest functionalities.
+* Established relationships using MongoDB references between Users, Listings, Reviews, and Bookings.
+* Built secure session-based authentication using Passport.js.
+* Integrated Cloudinary for scalable image storage and delivery.
+* Added Google Maps integration for location visualization.
+* Implemented booking approval workflows inspired by real-world rental platforms.
+* Structured middleware for authorization, validation, and centralized error handling.
+
+---
+
+# 🧠 Software Architecture
+
+The application follows the MVC (Model-View-Controller) architecture pattern.
+
+### Models
+
+* User
+* Listing
+* Booking
+* Review
+
+### Routes
+
+* Listing Routes
+* Authentication Routes
+* Review Routes
+* Booking Routes
+* Wishlist Routes
+
+### Middleware
+
+* Authentication Middleware
+* Authorization Middleware
+* Validation Middleware
+* Error Handling Middleware
+
+### Utilities
+
+* Async Error Wrappers
+* Custom Error Classes
+* Centralized Exception Handling
+
+---
+
+# 🔐 Security Features
+
+* Password hashing and secure authentication
+* Session-based login management
+* Protected routes
+* Resource ownership validation
+* Input validation
+* Centralized error handling
+* Secure environment variable management
+
+---
+
+# 📁 Project Structure
+
+```text
+Airbnb/
 │
+├── controllers/
+│
+├── models/
+│   ├── user.js
+│   ├── listing.js
+│   ├── booking.js
+│   └── review.js
+│
+├── routes/
+│   ├── listing.js
+│   ├── booking.js
+│   ├── review.js
+│   ├── payment.js
+│   ├── wishlist.js
+│   └── user.js
+│
+├── middleware/
+│
+├── utils/
+│
+├── public/
+│   ├── css/
+│   └── js/
+│
+├── views/
+│   ├── listings/
+│   ├── bookings/
+│   ├── users/
+│   ├── layouts/
+│   └── includes/
+│
+├── app.js
+├── package.json
+└── README.md
+```
 
-├── public/ # Static files (CSS, JS)
+---
 
-├── routes/          # Express route handlers
+# ⚙️ Installation & Setup
 
-├── views/           # EJS templates
+Clone the repository:
 
-├── middleware/      # Custom route protection logic
-
-├── utils/           # Error handling & async wrapper
-
-├── app.js           # Main server file
-
-└── package.json
-
-
-⚙️ Installation & Setup
-
-Clone the repository
-
+```bash
 git clone https://github.com/hariom-p1306/AirBnb-Full-Stack-Project-
+```
 
+Install dependencies:
 
-Install dependencies
-
+```bash
 npm install
+```
 
+Create a `.env` file:
 
-Create a .env file and add:
+```env
+ATLASDB_URL=your_mongodb_connection_string
 
-MONGO_URI=your_mongodb_connection_string
+SECRET=your_session_secret
 
-SESSION_SECRET=your_secret_key
-
-GOOGLE_MAPS_API_KEY=your_api_key
+GOOGLE_MAPS_API_KEY=your_google_maps_api_key
 
 CLOUDINARY_CLOUD_NAME=your_cloud_name
 
-CLOUDINARY_KEY=your_key
+CLOUDINARY_KEY=your_cloudinary_key
 
-CLOUDINARY_SECRET=your_secret
+CLOUDINARY_SECRET=your_cloudinary_secret
+```
 
+Run the application:
 
-Run the server
-
+```bash
 npm start
-
+```
 
 Open in browser:
 
-http://localhost:3000
+```bash
+http://localhost:8080
+```
 
-🎯 Learning Outcomes
+---
 
-Implemented MVC architecture
+# 🎯 Learning Outcomes
 
-Built secure authentication using Passport
+* Applied MVC Architecture in a real-world project
+* Built secure authentication and authorization systems
+* Implemented complete booking workflow management
+* Managed relational data using MongoDB references
+* Integrated third-party APIs and cloud services
+* Designed scalable backend structures
+* Deployed and maintained a production-ready application
 
-Designed booking workflow logic
+---
 
-Managed relational data using MongoDB references
+# 🚀 Future Enhancements
 
-Handled image uploads in production
+* Payment Gateway Integration
+* Real-Time Notifications
+* Email Confirmation System
+* Property Availability Calendar
+* Advanced Search Filters
+* Booking Date Validation
+* React Frontend Migration
+* Admin Dashboard
+* Recommendation System
 
-Deployed full-stack application to Render
+---
 
-📌 Future Improvements
+# 👨‍💻 Author
 
-Online payment gateway integration
+### Hariom Patel
 
-Reviews & rating system
+**Full Stack Developer**
 
-Wishlist feature
+* LinkedIn: https://www.linkedin.com/in/hariom-patel-dev
+* Portfolio: https://portfolio-one-navy-20.vercel.app/
 
-Advanced search & filtering
+---
 
-Performance optimization
-
-👤 Author
-
-Hariom Patel
-LinkedIn: (https://www.linkedin.com/in/hariom-patel-dev)
-Portfolio: https://portfolio-one-navy-20.vercel.app/
+⭐ If you found this project interesting, consider giving it a star and sharing your feedback.
