@@ -1,12 +1,14 @@
 # 🏠 StayEase – Full Stack Property Listing & Booking Platform
 
-A production-inspired full-stack property listing and booking platform built using Node.js, Express.js, MongoDB, and EJS.
+StayEase is a production-inspired full-stack property listing and booking platform built using **Node.js, Express.js, MongoDB, EJS, Passport.js, Cloudinary, and Google Maps API**.
 
-The platform enables users to discover properties, manage listings, submit booking requests, review properties, and interact through a complete host–guest workflow. The application is designed following industry-standard MVC architecture and focuses on authentication, authorization, booking management, cloud integrations, and scalable backend development.
+The platform allows users to explore properties, manage listings, save wishlist items, request bookings, complete dummy payments, generate booking receipts, and submit verified reviews after successful bookings. It also includes a host dashboard for managing listings, booking requests, revenue, and guest interactions.
+
+> This project follows the MVC architecture and focuses on real-world backend workflows, authentication, authorization, booking management, cloud storage, and scalable full-stack development.
 
 ---
 
-# 🚀 Live Demo
+## 🚀 Live Demo
 
 ### 🌐 Live Application
 
@@ -16,227 +18,256 @@ https://airbnb-full-stack-project-e7eq.onrender.com/listings
 
 https://github.com/hariom-p1306/AirBnb-Full-Stack-Project-
 
-> ⚠️ Note: Initial load may take a few seconds because the application is hosted on Render's free tier.
+> ⚠️ Note: The first load may take a few seconds because the app is deployed on Render's free tier.
 
 ---
 
-# ✨ Key Features
+## ✨ Key Features
 
-## 🔐 Authentication & Authorization
+### 🔐 Authentication & Authorization
 
-* Secure user registration and login
+* User signup and login
 * Session-based authentication using Passport.js
-* Password hashing and credential validation
+* Password hashing using Passport Local Mongoose
 * Protected routes for authenticated users
-* Authorization middleware for resource ownership validation
+* Owner-only authorization for edit/delete operations
+* Review author protection
+* Secure session storage using MongoDB session store
 
 ---
 
-## 🏠 Property Listing Management
+### 🏠 Property Listing Management
 
-* Create, update, and delete property listings
-* Property categorization support
-* Cloudinary-based image upload and management
-* Detailed property information pages
-* Responsive property cards and layouts
+* Create, view, update, and delete property listings
+* Cloudinary image upload support
+* Image preview before uploading
+* Category-based listing organization
+* Responsive listing cards
+* Detailed listing page with image gallery, booking card, reviews, and map
+* Owner-specific listing management page: **My Listings**
 
 ---
 
-## 📅 Booking Management System
+### 🔍 Advanced Search & Filtering
+
+* Search listings by title, location, and country
+* Filter listings by category
+* Filter listings by minimum and maximum price
+* Sort listings by price low-to-high and high-to-low
+* Clean Airbnb-style filter UI
+
+---
+
+### ❤️ Wishlist / Saved Listings
+
+* Users can save listings to wishlist
+* Add/remove listings using heart icon
+* User-specific wishlist page
+* Persistent wishlist stored in MongoDB
+
+---
+
+### 📅 Booking Management System
 
 * Guest booking request workflow
-* Host booking approval dashboard
-* Booking acceptance and rejection system
-* Dynamic booking status management
-* Guest booking tracking dashboard
+* Check-in and check-out date selection
+* Booking date validation
+* Past date booking prevention
+* Booking conflict prevention for already accepted bookings
+* Host accept/reject workflow
+* Guest booking cancellation for pending requests
+* Booking status tracking
 
-### Booking Flow
+#### Booking Flow
 
 ```text
-Guest Request
-       ↓
-    Pending
-       ↓
-Host Accept / Reject
-       ↓
+Guest sends booking request
+        ↓
+Pending
+        ↓
+Host accepts or rejects
+        ↓
 Accepted / Rejected
+        ↓
+Payment
+        ↓
+Paid / Confirmed
 ```
 
 ---
 
-## ⭐ Reviews & Ratings
+### 💳 Payment & Receipt Flow
 
-* Property review system
-* Individual user reviews
+* Dummy payment gateway flow
+* Payment status tracking: unpaid / paid
+* Total nights calculation
+* Total booking price calculation
+* Payment success receipt page
+* Printable booking receipt
+* Booking ID generation on receipt
+
+---
+
+### 📊 Host Dashboard
+
+* Host booking request dashboard
+* Accept/reject booking requests
+* Filter bookings by status:
+
+  * All
+  * Pending
+  * Accepted
+  * Rejected
+  * Paid
+* Host analytics cards:
+
+  * Total listings
+  * Total booking requests
+  * Pending requests
+  * Accepted bookings
+  * Rejected bookings
+  * Estimated revenue
+
+---
+
+### ⭐ Reviews & Ratings
+
+* Users can review listings only after completing a paid booking
+* Duplicate review prevention
+* Review author validation
 * Average rating calculation
-* Review ownership protection
-* Dynamic rating display
+* Verified Guest badge for paid guests
+* Review delete protection
 
 ---
 
-## 🔍 Search & Discovery
-
-* Search properties by location
-* Enhanced property browsing experience
-* Fast property discovery workflow
-
----
-
-## 🌎 Maps Integration
+### 🌎 Google Maps Integration
 
 * Google Maps API integration
-* Property location visualization
-* Interactive map display
+* Property location map section
+* Interactive map display on listing details page
 
 ---
 
-## 🎨 User Experience
+### 🎨 User Experience Improvements
 
-* Responsive UI design
-* Bootstrap-powered components
-* Flash messages and notifications
-* Client-side form validation
-* Improved booking workflow
+* Modern Airbnb-inspired UI
+* Responsive navbar
+* Premium listing cards
+* Flash message notifications
+* Form validation
+* Empty states
+* Booking status timeline
+* Mobile responsive design
+* Clean footer and layout structure
 
 ---
 
-# 🛠 Tech Stack
+## 🛠 Tech Stack
 
-## Frontend
+### Frontend
 
 * HTML5
 * CSS3
 * JavaScript
 * EJS
 * Bootstrap
+* Font Awesome
 
-## Backend
+### Backend
 
 * Node.js
 * Express.js
 * MongoDB
 * Mongoose
 
-## Authentication
+### Authentication
 
 * Passport.js
+* Passport Local Mongoose
 * Express Session
+* Connect Mongo
 
-## External Services
+### Cloud & APIs
 
 * Cloudinary
 * Google Maps API
+* MongoDB Atlas
 
-## Deployment
+### Deployment
 
 * Render
-* MongoDB Atlas
 
 ---
 
-# 🏗️ Architecture Diagram
+## 🏗️ Architecture Diagram
 
 ```mermaid
 flowchart TD
 
     A[Guest / Host User] --> B[EJS Frontend]
-
     B --> C[Express.js Routes]
 
     C --> D[Authentication Module]
-    C --> E[Property Listings Module]
-    C --> F[Booking Management Module]
-    C --> G[Review & Rating Module]
-    C --> H[Wishlist Module]
+    C --> E[Listing Module]
+    C --> F[Booking Module]
+    C --> G[Payment Module]
+    C --> H[Review Module]
+    C --> I[Wishlist Module]
+    C --> J[Host Dashboard Module]
 
-    D --> I[Passport.js]
-    I --> J[Session Store]
+    D --> K[Passport.js]
+    K --> L[MongoDB Session Store]
 
-    E --> K[Cloudinary Image Uploads]
-    E --> L[Google Maps API]
+    E --> M[Cloudinary Image Upload]
+    E --> N[Google Maps API]
 
-    F --> M[Booking Workflow]
-    M --> N[Accept / Reject Requests]
+    F --> O[Booking Request Workflow]
+    O --> P[Accept / Reject / Cancel]
 
-    G --> O[Average Rating Calculation]
+    G --> Q[Payment Status Tracking]
+    Q --> R[Booking Receipt]
 
-    C --> P[Mongoose ORM]
+    H --> S[Verified Guest Reviews]
+    I --> T[Saved Listings]
 
-    P --> Q[(MongoDB Atlas)]
+    C --> U[Mongoose ODM]
+    U --> V[(MongoDB Atlas)]
 
-    Q --> E
-    Q --> F
-    Q --> G
-    Q --> H
+    V --> E
+    V --> F
+    V --> G
+    V --> H
+    V --> I
+    V --> J
 ```
 
 ---
 
-# 🎯 System Design Highlights
+## 🧠 System Design Highlights
 
-* Implemented MVC Architecture for maintainable code organization.
-* Designed role-based workflows separating Host and Guest functionalities.
-* Established relationships using MongoDB references between Users, Listings, Reviews, and Bookings.
-* Built secure session-based authentication using Passport.js.
-* Integrated Cloudinary for scalable image storage and delivery.
-* Added Google Maps integration for location visualization.
-* Implemented booking approval workflows inspired by real-world rental platforms.
-* Structured middleware for authorization, validation, and centralized error handling.
-
----
-
-# 🧠 Software Architecture
-
-The application follows the MVC (Model-View-Controller) architecture pattern.
-
-### Models
-
-* User
-* Listing
-* Booking
-* Review
-
-### Routes
-
-* Listing Routes
-* Authentication Routes
-* Review Routes
-* Booking Routes
-* Wishlist Routes
-
-### Middleware
-
-* Authentication Middleware
-* Authorization Middleware
-* Validation Middleware
-* Error Handling Middleware
-
-### Utilities
-
-* Async Error Wrappers
-* Custom Error Classes
-* Centralized Exception Handling
+* MVC architecture for maintainable code organization
+* Separate models, routes, controllers, middleware, and views
+* Role-based host and guest workflows
+* MongoDB references between Users, Listings, Reviews, and Bookings
+* Protected ownership-based operations
+* Booking availability validation
+* Payment status and receipt management
+* Verified review workflow based on paid bookings
+* Cloudinary-based scalable image handling
+* MongoDB-backed session storage
+* Centralized error handling using custom error classes
 
 ---
 
-# 🔐 Security Features
-
-* Password hashing and secure authentication
-* Session-based login management
-* Protected routes
-* Resource ownership validation
-* Input validation
-* Centralized error handling
-* Secure environment variable management
-
----
-
-# 📁 Project Structure
+## 📁 Project Structure
 
 ```text
 Airbnb/
 │
 ├── controllers/
+│   ├── listings.js
+│   └── review.js
 │
 ├── models/
 │   ├── user.js
@@ -246,27 +277,34 @@ Airbnb/
 │
 ├── routes/
 │   ├── listing.js
+│   ├── user.js
 │   ├── booking.js
-│   ├── review.js
 │   ├── payment.js
-│   ├── wishlist.js
-│   └── user.js
-│
-├── middleware/
-│
-├── utils/
+│   ├── review.js
+│   └── wishlist.js
 │
 ├── public/
 │   ├── css/
+│   │   ├── style.css
+│   │   └── rating.css
 │   └── js/
+│       └── script.js
 │
 ├── views/
 │   ├── listings/
 │   ├── bookings/
 │   ├── users/
+│   ├── wishlist/
 │   ├── layouts/
 │   └── includes/
 │
+├── utils/
+│   ├── ExpressError.js
+│   └── wrapAsync.js
+│
+├── cloudConfig.js
+├── middleware.js
+├── schema.js
 ├── app.js
 ├── package.json
 └── README.md
@@ -274,43 +312,55 @@ Airbnb/
 
 ---
 
-# ⚙️ Installation & Setup
+## ⚙️ Installation & Setup
 
-Clone the repository:
+### 1. Clone the repository
 
 ```bash
 git clone https://github.com/hariom-p1306/AirBnb-Full-Stack-Project-
 ```
 
-Install dependencies:
+### 2. Move into the project folder
+
+```bash
+cd AirBnb-Full-Stack-Project-
+```
+
+### 3. Install dependencies
 
 ```bash
 npm install
 ```
 
-Create a `.env` file:
+### 4. Create a `.env` file
 
 ```env
-ATLASDB_URL=your_mongodb_connection_string
-
+ATLASDB_URL=your_mongodb_atlas_connection_string
 SECRET=your_session_secret
 
+CLOUD_NAME=your_cloudinary_cloud_name
+CLOUD_API_KEY=your_cloudinary_api_key
+CLOUD_API_SECRET=your_cloudinary_api_secret
+
 GOOGLE_MAPS_API_KEY=your_google_maps_api_key
-
-CLOUDINARY_CLOUD_NAME=your_cloud_name
-
-CLOUDINARY_KEY=your_cloudinary_key
-
-CLOUDINARY_SECRET=your_cloudinary_secret
+NODE_ENV=development
 ```
 
-Run the application:
+> Do not push your `.env` file to GitHub.
+
+### 5. Run the application
 
 ```bash
 npm start
 ```
 
-Open in browser:
+Or:
+
+```bash
+node app.js
+```
+
+### 6. Open in browser
 
 ```bash
 http://localhost:8080
@@ -318,33 +368,112 @@ http://localhost:8080
 
 ---
 
-# 🎯 Learning Outcomes
+## 🧪 Main User Flows
 
-* Applied MVC Architecture in a real-world project
-* Built secure authentication and authorization systems
-* Implemented complete booking workflow management
+### Guest Flow
+
+```text
+Signup/Login
+    ↓
+Explore listings
+    ↓
+Search/filter listings
+    ↓
+Save wishlist
+    ↓
+Send booking request
+    ↓
+Make dummy payment
+    ↓
+View receipt
+    ↓
+Submit verified review
+```
+
+### Host Flow
+
+```text
+Login
+    ↓
+Create listing
+    ↓
+Manage listings
+    ↓
+View booking requests
+    ↓
+Accept/reject bookings
+    ↓
+Track revenue and booking stats
+```
+
+---
+
+## 🔐 Security Features
+
+* Password hashing
+* Secure session-based authentication
+* Protected routes
+* Owner-only listing update/delete
+* Review author validation
+* Paid-booking-based review restriction
+* Environment variable management
+* Centralized error handling
+* MongoDB session store
+
+---
+
+## 📌 Important Features Implemented
+
+* Full authentication and authorization
+* Listing CRUD
+* Cloudinary image upload
+* Image preview before upload
+* Advanced search and price filters
+* Wishlist system
+* Booking request system
+* Booking conflict validation
+* Host booking dashboard
+* Host analytics dashboard
+* Payment status tracking
+* Total price calculation based on nights
+* Payment receipt page
+* Printable receipt
+* Verified guest reviews
+* Review duplicate prevention
+* My Listings page for hosts
+* Responsive UI improvements
+
+---
+
+## 🚀 Future Enhancements
+
+* Real payment gateway integration
+* Email booking confirmation
+* Real-time notifications
+* Availability calendar UI
+* Admin dashboard
+* Property recommendation system
+* React frontend migration
+* Multi-image listing gallery
+* Coupon and discount system
+
+---
+
+## 🎯 Learning Outcomes
+
+* Built a full-stack MVC application from scratch
+* Implemented secure authentication and authorization
+* Designed real-world host and guest workflows
 * Managed relational data using MongoDB references
-* Integrated third-party APIs and cloud services
-* Designed scalable backend structures
-* Deployed and maintained a production-ready application
+* Integrated Cloudinary and Google Maps API
+* Built booking conflict validation logic
+* Implemented payment tracking and receipt generation
+* Improved UI/UX with responsive design
+* Deployed a full-stack application on Render
 
 ---
 
-# 🚀 Future Enhancements
-
-* Payment Gateway Integration
-* Real-Time Notifications
-* Email Confirmation System
-* Property Availability Calendar
-* Advanced Search Filters
-* Booking Date Validation
-* React Frontend Migration
-* Admin Dashboard
-* Recommendation System
-
----
-
-# 👨‍💻 Author
+## 👨‍💻 Author
 
 ### Hariom Patel
 
@@ -355,4 +484,6 @@ http://localhost:8080
 
 ---
 
-⭐ If you found this project interesting, consider giving it a star and sharing your feedback.
+## ⭐ Support
+
+If you found this project useful or interesting, consider giving it a star on GitHub.
