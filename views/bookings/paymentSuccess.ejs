@@ -1,0 +1,89 @@
+<% layout("/layouts/boilerplate") %>
+
+    <div class="payment-page container">
+
+        <div class="payment-card payment-success-card">
+
+            <div class="success-check-icon">
+                <i class="fa-solid fa-check"></i>
+            </div>
+
+            <div class="payment-header">
+                <h3>Payment Successful</h3>
+                <p>Your booking has been confirmed successfully.</p>
+            </div>
+
+            <div class="payment-listing-box">
+                <% if(booking.listing && booking.listing.image && booking.listing.image.url){ %>
+                    <img src="<%= booking.listing.image.url %>" alt="<%= booking.listing.title %>">
+                    <% } %>
+
+                        <div>
+                            <h5>
+                                <%= booking.listing ? booking.listing.title : "Listing not available" %>
+                            </h5>
+
+                            <p class="text-muted mb-0">
+                                <i class="fa-solid fa-location-dot me-1"></i>
+                                <%= booking.listing && booking.listing.location ? booking.listing.location
+                                    : "Location not available" %>
+                            </p>
+                        </div>
+            </div>
+
+            <div class="payment-summary">
+
+                <div class="payment-row">
+                    <span>Booking ID</span>
+                    <strong>
+                        #<%= booking._id.toString().slice(-8).toUpperCase() %>
+                    </strong>
+                </div>
+
+                <% if(booking.checkIn && booking.checkOut){ %>
+                    <div class="payment-row">
+                        <span>Dates</span>
+                        <strong>
+                            <%= booking.checkIn.toDateString() %> → <%= booking.checkOut.toDateString() %>
+                        </strong>
+                    </div>
+                    <% } %>
+
+                        <div class="payment-row">
+                            <span>Total nights</span>
+                            <strong>
+                                <%= booking.totalNights || 1 %>
+                                    night<%= (booking.totalNights || 1)> 1 ? "s" : "" %>
+                            </strong>
+                        </div>
+
+                        <div class="payment-row total">
+                            <span>Total paid</span>
+                            <strong>
+                                ₹<%= booking.totalPrice ? booking.totalPrice.toLocaleString("en-IN") : booking.listing
+                                    && booking.listing.price ? booking.listing.price.toLocaleString("en-IN") : "0" %>
+                            </strong>
+                        </div>
+
+            </div>
+
+            <div class="receipt-actions">
+                <a href="/bookings/my" class="btn btn-outline-dark">
+                    My Bookings
+                </a>
+
+                <% if(booking.listing){ %>
+                    <a href="/listings/<%= booking.listing._id %>" class="btn add-btn">
+                        View Listing
+                    </a>
+                    <% } %>
+
+                        <button class="btn btn-outline-dark" onclick="window.print()">
+                            <i class="fa-solid fa-print me-1"></i>
+                            Print Receipt
+                        </button>
+            </div>
+
+        </div>
+
+    </div>

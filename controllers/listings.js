@@ -19,51 +19,83 @@ const Listing = require("../models/listing");
 const Booking = require("../models/booking");
 
 module.exports.index = async (req, res) => {
-  const { category, q } = req.query;
+  const {
+    category,
+    q,
+    minPrice,
+    maxPrice,
+    sort
+  } = req.query;
 
   let filter = {};
+  let sortOption = {};
 
-  // category filter
-  if (category) {
+  // ================= CATEGORY FILTER =================
+  if (category && category !== "All") {
     filter.category = category;
   }
 
-  // search filter (location / title)
-  if (q) {
+  // ================= SEARCH FILTER =================
+  if (q && q.trim() !== "") {
+    const searchText = q.trim();
+
     filter.$or = [
-      { location: { $regex: q, $options: "i" } },
-      { title: { $regex: q, $options: "i" } },
-      { country: { $regex: q, $options: "i" } }
+      { title: { $regex: searchText, $options: "i" } },
+      { location: { $regex: searchText, $options: "i" } },
+      { country: { $regex: searchText, $options: "i" } },
     ];
   }
 
-  // const allListings = await Listing.find(filter);
-  const allListings = await Listing.find(filter).populate("reviews");
+  // ================= PRICE FILTER =================
+  if (minPrice || maxPrice) {
+    filter.price = {};
 
-  allListings.forEach(listing => {
+    if (minPrice && !isNaN(minPrice)) {
+      filter.price.$gte = Number(minPrice);
+    }
 
-  if (listing.reviews.length > 0) {
-
-    let total = 0;
-
-    listing.reviews.forEach(review => {
-      total += review.rating;
-    });
-
-    listing.avgRating = (total / listing.reviews.length).toFixed(1);
-
-  } else {
-
-    listing.avgRating = "New";
-
+    if (maxPrice && !isNaN(maxPrice)) {
+      filter.price.$lte = Number(maxPrice);
+    }
   }
 
-});
+  // ================= SORTING =================
+  if (sort === "price_asc") {
+    sortOption.price = 1;
+  } else if (sort === "price_desc") {
+    sortOption.price = -1;
+  } else {
+    sortOption.createdAt = -1;
+  }
 
-  res.render("listings/index", { allListings, category, q });
+  const allListings = await Listing.find(filter)
+    .populate("reviews")
+    .sort(sortOption);
+
+  // ================= AVERAGE RATING =================
+  allListings.forEach((listing) => {
+    if (listing.reviews && listing.reviews.length > 0) {
+      let total = 0;
+
+      listing.reviews.forEach((review) => {
+        total += review.rating;
+      });
+
+      listing.avgRating = (total / listing.reviews.length).toFixed(1);
+    } else {
+      listing.avgRating = "New";
+    }
+  });
+
+  res.render("listings/index", {
+    allListings,
+    category,
+    q,
+    minPrice,
+    maxPrice,
+    sort,
+  });
 };
-
-
 
 module.exports.renderNewForm = (req, res) => {
   res.render("listings/new.ejs");
@@ -72,7 +104,8 @@ module.exports.renderNewForm = (req, res) => {
 
 
 module.exports.showListing = async (req, res) => {
-  let { id } = req.params;
+  const { id } = req.params;
+
   const listing = await Listing.findById(id)
     .populate({
       path: "reviews",
@@ -81,12 +114,32 @@ module.exports.showListing = async (req, res) => {
       },
     })
     .populate("owner");
+
   if (!listing) {
-    req.flash("error", "Listing you requested for does not exits!");
-    res.redirect("/listings");
+    req.flash("error", "Listing you requested does not exist!");
+    return res.redirect("/listings");
   }
-  console.log(listing);
-  res.render("listings/show.ejs", { listing });
+
+  // Find users who completed paid bookings for this listing
+  const paidBookings = await Booking.find({
+    listing: id,
+    paymentStatus: "paid",
+  }).select("guest");
+
+  const verifiedGuests = paidBookings.map((booking) =>
+    booking.guest.toString()
+  );
+  const unavailableBookings = await Booking.find({
+  listing: id,
+  status: "accepted",
+  paymentStatus: "paid",
+}).select("checkIn checkOut");
+
+  res.render("listings/show.ejs", {
+  listing,
+  verifiedGuests,
+  unavailableBookings,
+});
 };
 
 
@@ -112,6 +165,28 @@ module.exports.createListing = async (req, res, next) => {
   req.flash("success", "New Listing Created!");
   res.redirect("/listings");
 }
+
+module.exports.myListings = async (req, res) => {
+  const listings = await Listing.find({ owner: req.user._id })
+    .populate("reviews")
+    .sort({ createdAt: -1 });
+
+  listings.forEach((listing) => {
+    if (listing.reviews && listing.reviews.length > 0) {
+      let total = 0;
+
+      listing.reviews.forEach((review) => {
+        total += review.rating;
+      });
+
+      listing.avgRating = (total / listing.reviews.length).toFixed(1);
+    } else {
+      listing.avgRating = "New";
+    }
+  });
+
+  res.render("listings/myListings", { listings });
+};
 
 
 module.exports.renderEditForm = async (req, res) => {

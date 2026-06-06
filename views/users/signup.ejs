@@ -1,127 +1,82 @@
 <% layout("/layouts/boilerplate") %>
 
-    
+<div class="auth-page container">
 
+  <div class="auth-card">
 
-    <style>
-        body {
-            background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
-        }
-
-        /* container */
-
-        .signup-container {
-            max-width: 420px;
-            margin: auto;
-            margin-top: 60px;
-        }
-
-        /* card */
-
-        .signup-card {
-            background: white;
-            padding: 30px;
-            border-radius: 14px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
-        }
-
-        /* title */
-
-        .signup-title {
-            text-align: center;
-            font-weight: 700;
-            margin-bottom: 25px;
-        }
-
-        /* input */
-
-        .form-control {
-            border-radius: 10px;
-            padding: 10px;
-        }
-
-        .form-control:focus {
-            border-color: #ff385c;
-            box-shadow: none;
-        }
-
-        /* button */
-
-        .signup-btn {
-            width: 100%;
-            background: #ff385c;
-            border: none;
-            border-radius: 10px;
-            padding: 10px;
-            font-weight: 600;
-        }
-
-        .signup-btn {
-            transition: all 0.2s ease;
-        }
-
-        .signup-btn:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.15);
-        }
-
-        .form-control:focus {
-            border-color: #ff385c;
-            box-shadow: 0 0 0 0.15rem rgba(255, 56, 92, 0.2);
-        }
-
-        .signup-card {
-            padding: 35px;
-        }
-    </style>
-
-
-    <div class="signup-container">
-
-        <div class="signup-card">
-            <div class="text-center mb-3">
-                <i class="fa-solid fa-compass" style="color:#ff385c;font-size:32px;"></i>
-            </div>
-            <h3 class="signup-title">
-                Create your account
-            </h3>
-
-            <form action="/signup" method="POST" class="needs-validation" novalidate>
-
-                <div class="mb-3">
-                    <label class="form-label">Username</label>
-
-                    <input name="username" type="text" class="form-control" placeholder="Enter username" required>
-
-                </div>
-
-
-                <div class="mb-3">
-                    <label class="form-label">Email</label>
-
-                    <input name="email" type="email" class="form-control" placeholder="Enter email" required>
-
-                </div>
-
-
-                <div class="mb-3">
-                    <label class="form-label">Password</label>
-
-                    <input name="password" type="password" class="form-control" placeholder="Enter password" required>
-
-                </div>
-
-
-                <button class="btn signup-btn mt-2">
-                    Sign Up
-                </button>
-                <p class="text-center mt-3 text-muted">
-                    Already have an account?
-                    <a href="/login">Login</a>
-                </p>
-
-            </form>
-
-        </div>
-
+    <div class="auth-logo">
+      <i class="fa-solid fa-compass"></i>
     </div>
+
+    <div class="auth-header">
+      <h3>Create your account</h3>
+      <p>Join StayEase to book stays, host homes, and manage your trips.</p>
+    </div>
+
+    <form action="/signup" method="POST" class="needs-validation" novalidate>
+
+      <div class="mb-3">
+        <label class="form-label">Username</label>
+
+        <input
+          name="username"
+          type="text"
+          class="form-control"
+          placeholder="Choose a username"
+          autocomplete="username"
+          required
+        >
+
+        <div class="invalid-feedback">
+          Please enter a username.
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Email</label>
+
+        <input
+          name="email"
+          type="email"
+          class="form-control"
+          placeholder="Enter your email"
+          autocomplete="email"
+          required
+        >
+
+        <div class="invalid-feedback">
+          Please enter a valid email.
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Password</label>
+
+        <input
+          name="password"
+          type="password"
+          class="form-control"
+          placeholder="Create a password"
+          autocomplete="new-password"
+          required
+        >
+
+        <div class="invalid-feedback">
+          Please enter a password.
+        </div>
+      </div>
+
+      <button class="btn auth-btn w-100 mt-2">
+        Sign up
+      </button>
+
+      <p class="auth-bottom-text">
+        Already have an account?
+        <a href="/login">Log in</a>
+      </p>
+
+    </form>
+
+  </div>
+
+</div>

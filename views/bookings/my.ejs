@@ -1,116 +1,207 @@
-<% layout('layouts/boilerplate') -%>
+<% layout('/layouts/boilerplate') -%>
 
-  <style>
-    .bookings-container {
-      max-width: 900px;
-      margin: auto;
-      margin-top: 40px;
-    }
+  <div class="booking-page container">
 
-    .booking-card {
-      display: flex;
-      gap: 20px;
-      align-items: center;
-      padding: 18px;
-      border-radius: 14px;
-      background: white;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
-      margin-bottom: 20px;
-    }
+    <!-- PAGE HEADER -->
+    <div class="booking-page-header">
+      <div>
+        <p class="form-kicker">My trips</p>
 
-    .booking-img {
-      width: 120px;
-      height: 90px;
-      object-fit: cover;
-      border-radius: 10px;
-    }
+        <h2>
+          My Bookings
+          <span>(<%= bookings.length %>)</span>
+        </h2>
 
-    .booking-info {
-      flex: 1;
-    }
+        <p class="text-muted mb-0">
+          Track your booking requests, payment status, and stay details.
+        </p>
+      </div>
 
-    .status-badge {
-      padding: 4px 10px;
-      border-radius: 20px;
-      font-size: 12px;
-      font-weight: 600;
-    }
+      <a href="/listings" class="btn btn-outline-dark">
+        <i class="fa-solid fa-magnifying-glass me-1"></i>
+        Explore stays
+      </a>
+    </div>
 
-    .pending {
-      background: #fef3c7;
-      color: #92400e;
-    }
-
-    .accepted {
-      background: #dcfce7;
-      color: #166534;
-    }
-
-    .rejected {
-      background: #fee2e2;
-      color: #991b1b;
-    }
-  </style>
-
-
-  <div class="bookings-container">
-
-    <h3 class="mb-4 fw-bold">
-      My Bookings (<%= bookings.length %>)
-    </h3>
-
+    <!-- EMPTY STATE -->
     <% if(bookings.length===0){ %>
+      <div class="empty-booking-state">
+        <div class="empty-icon">
+          <i class="fa-regular fa-calendar"></i>
+        </div>
 
-      <p class="text-muted">
-        No bookings yet.
-      </p>
+        <h4>No bookings yet</h4>
 
+        <p class="text-muted mb-3">
+          Start exploring beautiful stays and book your first trip.
+        </p>
+
+        <a href="/listings" class="btn add-btn">
+          Browse Listings
+        </a>
+      </div>
       <% } %>
 
+        <!-- BOOKING LIST -->
+        <div class="booking-list">
 
-        <% bookings.forEach(b=> { %>
+          <% bookings.forEach(b=> { %>
 
-          <div class="booking-card">
+            <div class="booking-item-card">
 
-            <!-- IMAGE -->
+              <!-- IMAGE -->
+              <div class="booking-img-wrap">
+                <% if(b.listing && b.listing.image && b.listing.image.url){ %>
+                  <img src="<%= b.listing.image.url %>" alt="<%= b.listing.title %>">
+                  <% } else { %>
+                    <div class="booking-placeholder-img">
+                      <i class="fa-regular fa-image"></i>
+                    </div>
+                    <% } %>
+              </div>
 
-            <% if(b.listing && b.listing.image){ %>
+              <!-- DETAILS -->
+              <div class="booking-content">
 
-              <img src="<%= b.listing.image.url %>" class="booking-img">
+                <div class="booking-main-info">
 
-              <% } else { %>
+                  <h5>
+                    <%= b.listing ? b.listing.title : "Listing not available" %>
+                  </h5>
 
-                <img src="https://via.placeholder.com/120x90?text=No+Image" class="booking-img">
+                  <p class="text-muted mb-1">
+                    <i class="fa-solid fa-user-tie me-1"></i>
+                    Host:
+                    <strong>
+                      <%= b.host ? b.host.username : "Unknown host" %>
+                    </strong>
+                  </p>
 
-                <% } %>
+                  <!-- DATE -->
+                  <p class="booking-date mb-2">
+                    <i class="fa-regular fa-calendar me-1"></i>
 
+                    <% if(b.checkIn && b.checkOut){ %>
+                      <%= b.checkIn.toDateString() %>
+                        <span>→</span>
+                        <%= b.checkOut.toDateString() %>
+                          <% } else { %>
+                            Dates not specified
+                            <% } %>
+                  </p>
 
-                  <!-- DETAILS -->
+                  <!-- TOTAL PRICE -->
+                  <p class="booking-date mb-2">
+                    <i class="fa-solid fa-indian-rupee-sign me-1"></i>
+                    Total:
+                    <strong>
+                      ₹<%= b.totalPrice ? b.totalPrice.toLocaleString("en-IN") : b.listing && b.listing.price ?
+                        b.listing.price.toLocaleString("en-IN") : "0" %>
+                    </strong>
 
-                  <div class="booking-info">
+                    <% if(b.totalNights){ %>
+                      <span>
+                        (<%= b.totalNights %> night<%= b.totalNights> 1 ? "s" : "" %>)
+                      </span>
+                      <% } %>
+                  </p>
 
-                    <h5 class="mb-1">
-                      <%= b.listing ? b.listing.title : "Listing not available" %>
-                    </h5>
+                  <!-- BOOKING STATUS -->
+                  <span class="booking-status 
+              <%= b.status === 'accepted'
+                ? 'status-accepted'
+                : b.status === 'rejected'
+                ? 'status-rejected'
+                : 'status-pending' %>">
+                    <%= b.status %>
+                  </span>
 
-                    <p class="text-muted mb-1">
-                      Host: <%= b.host ? b.host.username : "Unknown host" %>
-                    </p>
+                  <!-- PAYMENT STATUS -->
+                  <span class="payment-status 
+              <%= b.paymentStatus === 'paid' ? 'payment-paid' : 'payment-unpaid' %>">
+                    <i class="fa-solid <%= b.paymentStatus === 'paid' ? 'fa-circle-check' : 'fa-clock' %> me-1"></i>
+                    Payment: <%= b.paymentStatus || "unpaid" %>
+                  </span>
 
-                    <span class="status-badge
+                  <div class="booking-timeline">
 
-                        <%= b.status === " accepted" ? "accepted" : b.status==="rejected" ? "rejected" : "pending" %>
+  <div class="timeline-step active">
+    <span>
+      <i class="fa-solid fa-paper-plane"></i>
+    </span>
+    <p>Requested</p>
+  </div>
 
-                      ">
+  <% if(b.status === "rejected"){ %>
 
-                      <%= b.status %>
+    <div class="timeline-line danger"></div>
 
-                    </span>
+    <div class="timeline-step rejected">
+      <span>
+        <i class="fa-solid fa-xmark"></i>
+      </span>
+      <p>Rejected</p>
+    </div>
 
-                  </div>
+  <% } else { %>
 
-          </div>
+    <div class="timeline-line <%= b.status === 'accepted' ? 'active' : '' %>"></div>
 
-          <% }) %>
+    <div class="timeline-step <%= b.status === 'accepted' ? 'active' : '' %>">
+      <span>
+        <i class="fa-solid fa-check"></i>
+      </span>
+      <p>Accepted</p>
+    </div>
+
+    <div class="timeline-line <%= b.paymentStatus === 'paid' ? 'active' : '' %>"></div>
+
+    <div class="timeline-step <%= b.paymentStatus === 'paid' ? 'active' : '' %>">
+      <span>
+        <i class="fa-solid fa-credit-card"></i>
+      </span>
+      <p>Paid</p>
+    </div>
+
+  <% } %>
+
+</div>
+
+                </div>
+
+                <!-- ACTIONS -->
+                <div class="booking-actions">
+
+                  <% if(b.listing){ %>
+                    <a href="/listings/<%= b.listing._id %>" class="btn btn-outline-dark btn-sm">
+                      View Listing
+                    </a>
+                    <% } %>
+
+                      <% if(b.status !=="rejected" && b.paymentStatus !=="paid" ){ %>
+                        <a href="/payment/<%= b._id %>" class="btn btn-danger btn-sm">
+                          <i class="fa-solid fa-credit-card me-1"></i>
+                          Pay Now
+                        </a>
+                        <% } %>
+
+                          <% if(b.status==="pending" ){ %>
+                            <form action="/bookings/<%= b._id %>/cancel" method="POST">
+                              <button class="btn btn-outline-danger btn-sm">
+                                <i class="fa-solid fa-ban me-1"></i>
+                                Cancel Request
+                              </button>
+                            </form>
+                            <% } %>
+
+                </div>
+
+              </div>
+
+            </div>
+
+            <% }) %>
+
+        </div>
 
   </div>

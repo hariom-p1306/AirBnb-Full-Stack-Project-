@@ -1,94 +1,92 @@
 <% layout("/layouts/boilerplate") %>
 
-    <style>
-        body {
-            background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
-        }
+<div class="payment-page container">
 
-        .payment-container {
-            max-width: 450px;
-            margin: auto;
-            margin-top: 80px;
-        }
+  <div class="payment-card">
 
-        .payment-card {
-            background: white;
-            padding: 30px;
-            border-radius: 16px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
-        }
+    <div class="payment-icon">
+      <i class="fa-solid fa-lock"></i>
+    </div>
 
-        .payment-title {
-            font-weight: 700;
-            margin-bottom: 15px;
-        }
+    <div class="payment-header">
+      <h3>Complete Payment</h3>
+      <p>Review your booking details before completing payment.</p>
+    </div>
 
-        .payment-btn {
-            background: #ff385c;
-            border: none;
-            border-radius: 10px;
-            padding: 10px;
-            font-weight: 600;
-            width: 100%;
-            transition: all 0.2s ease;
-        }
+    <div class="payment-listing-box">
 
-        .payment-btn:hover {
-            background: #e61e4d;
-            transform: translateY(-1px);
-            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.15);
-        }
+      <% if(booking.listing && booking.listing.image && booking.listing.image.url){ %>
+        <img src="<%= booking.listing.image.url %>" alt="<%= booking.listing.title %>">
+      <% } %>
 
-        .listing-name {
-            font-weight: 600;
-            font-size: 18px;
-        }
+      <div>
+        <h5>
+          <%= booking.listing ? booking.listing.title : "Listing not available" %>
+        </h5>
 
-        .price-box {
-            background: #f8fafc;
-            border-radius: 10px;
-            padding: 12px;
-            margin-top: 10px;
-        }
-    </style>
-
-
-    <div class="payment-container">
-
-        <div class="payment-card">
-
-            <h4 class="payment-title">Complete Payment</h4>
-
-            <p class="listing-name">
-                <%= booking.listing.title %>
-            </p>
-
-            <div class="price-box">
-
-                <p class="mb-1">
-                    Price per night
-                </p>
-
-                <h5>
-                    ₹ <%= booking.listing.price %>
-                </h5>
-
-            </div>
-
-            <hr>
-
-            <form action="/payment/<%= booking._id %>" method="POST">
-
-                <button class="payment-btn mt-3">
-                    Pay Now
-                </button>
-
-            </form>
-
-            <p class="text-center text-muted mt-3">
-                🔒 Secure Dummy Payment Gateway
-            </p>
-
-        </div>
+        <p class="text-muted mb-0">
+          <i class="fa-solid fa-location-dot me-1"></i>
+          <%= booking.listing && booking.listing.location ? booking.listing.location : "Location not available" %>
+        </p>
+      </div>
 
     </div>
+
+    <div class="payment-summary">
+
+      <div class="payment-row">
+        <span>Price per night</span>
+        <strong>
+          ₹<%= booking.listing && booking.listing.price
+            ? booking.listing.price.toLocaleString("en-IN")
+            : "0" %>
+        </strong>
+      </div>
+
+      <% if(booking.checkIn && booking.checkOut){ %>
+        <div class="payment-row">
+          <span>Dates</span>
+          <strong>
+            <%= booking.checkIn.toDateString() %>
+            →
+            <%= booking.checkOut.toDateString() %>
+          </strong>
+        </div>
+      <% } %>
+
+      <div class="payment-row">
+        <span>Total nights</span>
+        <strong>
+          <%= booking.totalNights || 1 %>
+          night<%= (booking.totalNights || 1) > 1 ? "s" : "" %>
+        </strong>
+      </div>
+
+      <div class="payment-row total">
+        <span>Total payable</span>
+        <strong>
+          ₹<%= booking.totalPrice
+            ? booking.totalPrice.toLocaleString("en-IN")
+            : booking.listing && booking.listing.price
+            ? booking.listing.price.toLocaleString("en-IN")
+            : "0" %>
+        </strong>
+      </div>
+
+    </div>
+
+    <form action="/payment/<%= booking._id %>" method="POST">
+      <button class="btn payment-btn">
+        <i class="fa-solid fa-credit-card me-1"></i>
+        Pay Now
+      </button>
+    </form>
+
+    <p class="secure-payment-text">
+      <i class="fa-solid fa-shield-halved"></i>
+      Secure Dummy Payment Gateway
+    </p>
+
+  </div>
+
+</div>

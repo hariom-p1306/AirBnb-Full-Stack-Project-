@@ -1,0 +1,95 @@
+<% layout("/layouts/boilerplate") -%>
+
+<div class="wishlist-page container">
+
+  <div class="booking-page-header">
+    <div>
+      <p class="form-kicker">Saved stays</p>
+
+      <h2>
+        My Wishlist
+        <span>(<%= wishlistListings.length %>)</span>
+      </h2>
+
+      <p class="text-muted mb-0">
+        All your saved listings in one place.
+      </p>
+    </div>
+
+    <a href="/listings" class="btn btn-outline-dark">
+      <i class="fa-solid fa-magnifying-glass me-1"></i>
+      Explore more
+    </a>
+  </div>
+
+  <% if(wishlistListings.length === 0){ %>
+    <div class="empty-booking-state">
+      <div class="empty-icon">
+        <i class="fa-regular fa-heart"></i>
+      </div>
+
+      <h4>No saved listings yet</h4>
+
+      <p class="text-muted mb-3">
+        Click the heart icon on listings to save your favorite stays.
+      </p>
+
+      <a href="/listings" class="btn add-btn">
+        Browse Listings
+      </a>
+    </div>
+  <% } %>
+
+  <div class="row g-4 mt-2">
+    <% wishlistListings.forEach(listing => { %>
+
+      <div class="col-12 col-sm-6 col-lg-4 col-xl-3">
+        <div class="listing-card card">
+
+          <div class="card-img-container">
+            <a href="/listings/<%= listing._id %>" class="listing_link">
+              <img
+                src="<%= listing.image.url %>"
+                class="card-img-top"
+                alt="<%= listing.title %>"
+              >
+            </a>
+
+            <button class="wishlist-icon active" type="button" data-id="<%= listing._id %>">
+              <i class="fa-solid fa-heart"></i>
+            </button>
+
+            <div class="rating-badge">
+              <i class="fa-solid fa-star"></i>
+              <%= listing.avgRating || "New" %>
+            </div>
+          </div>
+
+          <a href="/listings/<%= listing._id %>" class="listing_link">
+            <div class="card-body">
+              <p class="card-title mb-1">
+                <%= listing.title %>
+              </p>
+
+              <p class="text-muted small mb-1">
+                <i class="fa-solid fa-location-dot"></i>
+                <%= listing.location %>
+              </p>
+
+              <p class="mb-0">
+                <span class="price">
+                  ₹<%= listing.price.toLocaleString("en-IN") %>
+                </span>
+
+                <span class="text-muted">/ night</span>
+              </p>
+            </div>
+          </a>
+
+        </div>
+      </div>
+
+    <% }) %>
+  </div>
+
+</div>

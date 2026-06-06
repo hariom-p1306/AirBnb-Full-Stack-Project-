@@ -1,28 +1,112 @@
-<% layout('layouts/boilerplate') -%>
+<% layout('/layouts/boilerplate') -%>
 
-<body>
-<h2>Your Booking Requests</h2>
+<div class="booking-page container">
 
-<% bookings.forEach(booking => { %>
-  <div class="card mb-3">
-    <div class="card-body">
+  <div class="booking-page-header">
+    <div>
+      <p class="form-kicker">Host panel</p>
 
-      <p><b>Listing:</b> <%= booking.listing.title %></p>
-      <p><b>Guest:</b> <%= booking.guest.username %></p>
-      <p><b>Status:</b> <%= booking.status %></p>
+      <h2>
+        Your Booking Requests
+        <span>(<%= bookings.length %>)</span>
+      </h2>
 
-      <% if(booking.status === "pending") { %>
-        <form action="/bookings/<%= booking._id %>/accept" method="POST" style="display:inline;">
-          <button class="btn btn-success btn-sm">Accept</button>
-        </form>
-
-        <form action="/bookings/<%= booking._id %>/reject" method="POST" style="display:inline;">
-          <button class="btn btn-danger btn-sm">Reject</button>
-        </form>
-      <% } %>
-
+      <p class="text-muted mb-0">
+        Accept or reject booking requests from guests.
+      </p>
     </div>
   </div>
-<% }) %>
 
-</body>
+  <% if(bookings.length === 0){ %>
+    <div class="empty-booking-state">
+      <div class="empty-icon">
+        <i class="fa-regular fa-calendar-xmark"></i>
+      </div>
+
+      <h4>No booking requests yet</h4>
+
+      <p class="text-muted mb-0">
+        Guest booking requests will appear here.
+      </p>
+    </div>
+  <% } %>
+
+  <div class="booking-list">
+
+    <% bookings.forEach(booking => { %>
+
+      <div class="booking-item-card">
+
+        <div class="booking-img-wrap">
+          <% if(booking.listing && booking.listing.image && booking.listing.image.url){ %>
+            <img src="<%= booking.listing.image.url %>" alt="<%= booking.listing.title %>">
+          <% } else { %>
+            <div class="booking-placeholder-img">
+              <i class="fa-regular fa-image"></i>
+            </div>
+          <% } %>
+        </div>
+
+        <div class="booking-content">
+
+          <div class="booking-main-info">
+            <h5>
+              <%= booking.listing ? booking.listing.title : "Listing not available" %>
+            </h5>
+
+            <p class="text-muted mb-1">
+              <i class="fa-solid fa-user me-1"></i>
+              Guest:
+              <strong>
+                <%= booking.guest ? booking.guest.username : "Unknown guest" %>
+              </strong>
+            </p>
+
+            <% if(booking.checkIn && booking.checkOut){ %>
+              <p class="booking-date mb-2">
+                <i class="fa-regular fa-calendar me-1"></i>
+                <%= booking.checkIn.toDateString() %>
+                <span>→</span>
+                <%= booking.checkOut.toDateString() %>
+              </p>
+            <% } %>
+
+            <span class="booking-status 
+              <%= booking.status === 'accepted'
+                ? 'status-accepted'
+                : booking.status === 'rejected'
+                ? 'status-rejected'
+                : 'status-pending' %>">
+              <%= booking.status %>
+            </span>
+          </div>
+
+          <% if(booking.status === "pending") { %>
+            <div class="booking-actions">
+
+              <form action="/bookings/<%= booking._id %>/accept" method="POST">
+                <button class="btn btn-success btn-sm">
+                  <i class="fa-solid fa-check me-1"></i>
+                  Accept
+                </button>
+              </form>
+
+              <form action="/bookings/<%= booking._id %>/reject" method="POST">
+                <button class="btn btn-outline-danger btn-sm">
+                  <i class="fa-solid fa-xmark me-1"></i>
+                  Reject
+                </button>
+              </form>
+
+            </div>
+          <% } %>
+
+        </div>
+
+      </div>
+
+    <% }) %>
+
+  </div>
+
+</div>

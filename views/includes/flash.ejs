@@ -1,32 +1,50 @@
 <% if (success && success.length) { %>
-<div id="flash-success" class="alert alert-success alert-dismissible fade show col-6 offset-3" role="alert">
-    <%= success %>
-</div>
+  <div id="flash-success" class="custom-flash flash-success" role="alert">
+    <div class="flash-icon">
+      <i class="fa-solid fa-check"></i>
+    </div>
+
+    <div class="flash-message">
+      <%= success %>
+    </div>
+
+    <button type="button" class="flash-close" onclick="closeFlash('flash-success')">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+  </div>
 <% } %>
 
 <% if (error && error.length) { %>
-<div id="flash-error" class="alert alert-danger alert-dismissible fade show col-6 offset-3" role="alert">
-    <%= error %>
-</div>
+  <div id="flash-error" class="custom-flash flash-error" role="alert">
+    <div class="flash-icon">
+      <i class="fa-solid fa-triangle-exclamation"></i>
+    </div>
+
+    <div class="flash-message">
+      <%= error %>
+    </div>
+
+    <button type="button" class="flash-close" onclick="closeFlash('flash-error')">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+  </div>
 <% } %>
 
-
-
 <script>
+  function closeFlash(id) {
+    const flash = document.getElementById(id);
 
-setTimeout(() => {
+    if (flash) {
+      flash.classList.add("flash-hide");
 
-const success = document.getElementById("flash-success");
-const error = document.getElementById("flash-error");
+      setTimeout(() => {
+        flash.remove();
+      }, 300);
+    }
+  }
 
-if(success){
-success.style.display = "none";
-}
-
-if(error){
-error.style.display = "none";
-}
-
-},3000); // 3 seconds
-
+  setTimeout(() => {
+    closeFlash("flash-success");
+    closeFlash("flash-error");
+  }, 3000);
 </script>

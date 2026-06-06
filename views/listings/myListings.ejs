@@ -1,0 +1,108 @@
+<% layout("/layouts/boilerplate") -%>
+
+<div class="host-listings-page container">
+
+  <div class="booking-page-header">
+    <div>
+      <p class="form-kicker">Host listings</p>
+
+      <h2>
+        My Listings
+        <span>(<%= listings.length %>)</span>
+      </h2>
+
+      <p class="text-muted mb-0">
+        Manage all properties created by you.
+      </p>
+    </div>
+
+    <a href="/listings/new" class="btn add-btn">
+      <i class="fa-solid fa-plus me-1"></i>
+      Add New Listing
+    </a>
+  </div>
+
+  <% if(listings.length === 0){ %>
+    <div class="empty-booking-state">
+      <div class="empty-icon">
+        <i class="fa-solid fa-house-circle-exclamation"></i>
+      </div>
+
+      <h4>No listings created yet</h4>
+
+      <p class="text-muted mb-3">
+        Start hosting by adding your first property.
+      </p>
+
+      <a href="/listings/new" class="btn add-btn">
+        Create Listing
+      </a>
+    </div>
+  <% } %>
+
+  <div class="host-listings-grid">
+
+    <% listings.forEach(listing => { %>
+
+      <div class="host-listing-card">
+
+        <div class="host-listing-img">
+          <% if(listing.image && listing.image.url){ %>
+            <img src="<%= listing.image.url %>" alt="<%= listing.title %>">
+          <% } else { %>
+            <div class="booking-placeholder-img">
+              <i class="fa-regular fa-image"></i>
+            </div>
+          <% } %>
+        </div>
+
+        <div class="host-listing-body">
+
+          <div class="host-listing-top">
+            <h5>
+              <%= listing.title %>
+            </h5>
+
+            <span class="rating-badge-inline">
+              <i class="fa-solid fa-star"></i>
+              <%= listing.avgRating || "New" %>
+            </span>
+          </div>
+
+          <p class="text-muted mb-2">
+            <i class="fa-solid fa-location-dot me-1"></i>
+            <%= Array.isArray(listing.location) ? listing.location.join(", ") : listing.location || "Location not added" %>
+          </p>
+
+          <p class="host-listing-price">
+            ₹<%= listing.price ? listing.price.toLocaleString("en-IN") : "0" %>
+            <span>/ night</span>
+          </p>
+
+          <div class="host-listing-actions">
+
+            <a href="/listings/<%= listing._id %>" class="btn btn-outline-dark btn-sm">
+              View
+            </a>
+
+            <a href="/listings/<%= listing._id %>/edit" class="btn btn-dark btn-sm">
+              Edit
+            </a>
+
+            <form method="POST" action="/listings/<%= listing._id %>?_method=DELETE">
+              <button class="btn btn-outline-danger btn-sm">
+                Delete
+              </button>
+            </form>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    <% }) %>
+
+  </div>
+
+</div>
