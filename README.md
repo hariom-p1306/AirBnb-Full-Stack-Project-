@@ -1,10 +1,10 @@
-# 🏠 StayEase – Full Stack Property Listing & Booking Platform
+# 🏠 StayEase – Property Listing & Booking Platform
 
-StayEase is a production-inspired full-stack property listing and booking platform built using **Node.js, Express.js, MongoDB, EJS, Passport.js, Cloudinary, and Google Maps API**.
+StayEase is a production-inspired full-stack property listing and booking platform built using **Node.js, Express.js, MongoDB, EJS, Passport.js, Cloudinary, Google Maps API, GitHub Actions, and Render**.
 
-The platform allows users to explore properties, manage listings, save wishlist items, request bookings, complete dummy payments, generate booking receipts, and submit verified reviews after successful bookings. It also includes a host dashboard for managing listings, booking requests, revenue, and guest interactions.
+The platform allows users to explore properties, manage listings, save wishlist items, request bookings, complete dummy payments, generate booking receipts, and submit verified reviews after successful bookings. It also includes a host dashboard for managing listings, booking requests, revenue tracking, and guest interactions.
 
-> This project follows the MVC architecture and focuses on real-world backend workflows, authentication, authorization, booking management, cloud storage, and scalable full-stack development.
+> This project follows the MVC architecture and focuses on real-world backend workflows, authentication, authorization, booking management, cloud storage, CI/CD workflow, and scalable full-stack development.
 
 ---
 
@@ -42,7 +42,7 @@ https://github.com/hariom-p1306/AirBnb-Full-Stack-Project-
 * Cloudinary image upload support
 * Image preview before uploading
 * Category-based listing organization
-* Responsive listing cards
+* Responsive listing cards and layouts
 * Detailed listing page with image gallery, booking card, reviews, and map
 * Owner-specific listing management page: **My Listings**
 
@@ -77,6 +77,7 @@ https://github.com/hariom-p1306/AirBnb-Full-Stack-Project-
 * Host accept/reject workflow
 * Guest booking cancellation for pending requests
 * Booking status tracking
+* Unavailable dates display for confirmed bookings
 
 #### Booking Flow
 
@@ -154,12 +155,22 @@ Paid / Confirmed
 * Modern Airbnb-inspired UI
 * Responsive navbar
 * Premium listing cards
+* Mobile-friendly filters
 * Flash message notifications
 * Form validation
 * Empty states
 * Booking status timeline
-* Mobile responsive design
 * Clean footer and layout structure
+* Improved mobile responsiveness across major pages
+
+---
+
+### ⚙️ CI/CD & Deployment
+
+* GitHub Actions CI workflow for dependency installation and basic code validation
+* Render auto-deployment from GitHub repository
+* Environment-based configuration using `.env`
+* MongoDB Atlas for cloud database hosting
 
 ---
 
@@ -194,8 +205,11 @@ Paid / Confirmed
 * Google Maps API
 * MongoDB Atlas
 
-### Deployment
+### DevOps & Deployment
 
+* Git
+* GitHub
+* GitHub Actions
 * Render
 
 ---
@@ -224,6 +238,7 @@ flowchart TD
 
     F --> O[Booking Request Workflow]
     O --> P[Accept / Reject / Cancel]
+    O --> X[Unavailable Dates]
 
     G --> Q[Payment Status Tracking]
     Q --> R[Booking Receipt]
@@ -233,6 +248,10 @@ flowchart TD
 
     C --> U[Mongoose ODM]
     U --> V[(MongoDB Atlas)]
+
+    W[GitHub Repository] --> Y[GitHub Actions CI]
+    Y --> Z[Render Auto Deployment]
+    Z --> C
 
     V --> E
     V --> F
@@ -251,11 +270,13 @@ flowchart TD
 * Role-based host and guest workflows
 * MongoDB references between Users, Listings, Reviews, and Bookings
 * Protected ownership-based operations
-* Booking availability validation
+* Booking availability and conflict validation
 * Payment status and receipt management
 * Verified review workflow based on paid bookings
 * Cloudinary-based scalable image handling
 * MongoDB-backed session storage
+* GitHub Actions CI workflow for automated project validation
+* Render auto-deployment from GitHub
 * Centralized error handling using custom error classes
 
 ---
@@ -264,6 +285,10 @@ flowchart TD
 
 ```text
 Airbnb/
+│
+├── .github/
+│   └── workflows/
+│       └── node-ci.yml
 │
 ├── controllers/
 │   ├── listings.js
@@ -368,6 +393,31 @@ http://localhost:8080
 
 ---
 
+## 🔁 CI/CD Workflow
+
+This project includes a basic GitHub Actions CI workflow.
+
+```text
+Code Push to GitHub
+        ↓
+GitHub Actions runs CI
+        ↓
+Install dependencies
+        ↓
+Validate project setup
+        ↓
+Render auto-deploys updated code
+```
+
+### CI Workflow Includes
+
+* Repository checkout
+* Node.js setup
+* Dependency installation
+* Basic code validation
+
+---
+
 ## 🧪 Main User Flows
 
 ### Guest Flow
@@ -432,6 +482,7 @@ Track revenue and booking stats
 * Wishlist system
 * Booking request system
 * Booking conflict validation
+* Unavailable dates display
 * Host booking dashboard
 * Host analytics dashboard
 * Payment status tracking
@@ -442,6 +493,8 @@ Track revenue and booking stats
 * Review duplicate prevention
 * My Listings page for hosts
 * Responsive UI improvements
+* GitHub Actions CI workflow
+* Render auto-deployment
 
 ---
 
@@ -468,6 +521,7 @@ Track revenue and booking stats
 * Integrated Cloudinary and Google Maps API
 * Built booking conflict validation logic
 * Implemented payment tracking and receipt generation
+* Added GitHub Actions CI workflow
 * Improved UI/UX with responsive design
 * Deployed a full-stack application on Render
 
