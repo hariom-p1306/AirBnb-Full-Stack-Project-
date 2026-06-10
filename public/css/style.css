@@ -2141,3 +2141,198 @@ img {
   color: var(--text-muted);
   margin: 0 6px;
 }
+
+
+/* ================= MOBILE HOME + NAVBAR FIX ================= */
+
+@media (max-width: 576px) {
+body {
+overflow-x: hidden;
+}
+
+.custom-navbar {
+min-height: 4.2rem;
+padding: 8px 0;
+}
+
+.custom-navbar .container-fluid,
+.custom-navbar .container {
+padding-left: 14px;
+padding-right: 14px;
+}
+
+.navbar-brand i {
+font-size: 24px;
+}
+
+.brand-text {
+display: none;
+}
+
+.navbar-collapse {
+width: 100%;
+max-width: 100%;
+margin-top: 10px;
+padding: 14px;
+border-radius: 18px;
+background: #fff;
+overflow: hidden;
+}
+
+.navbar-nav {
+width: 100%;
+}
+
+.nav-link {
+width: 100%;
+padding: 10px 8px !important;
+font-size: 0.9rem;
+}
+
+.navbar-search {
+width: 100%;
+max-width: 100%;
+margin: 8px 0;
+}
+
+.search-form {
+width: 100%;
+max-width: 100%;
+padding: 4px 5px 4px 14px;
+}
+
+.search-inp {
+min-width: 0;
+font-size: 0.85rem;
+}
+
+.btn-search {
+min-width: 34px;
+width: 34px;
+height: 34px;
+flex-shrink: 0;
+}
+
+/* Filters row */
+#filters {
+display: block;
+padding-top: 10px;
+padding-bottom: 12px;
+overflow: hidden;
+}
+
+.filters-left {
+display: flex;
+flex-wrap: nowrap;
+gap: 22px;
+overflow-x: auto;
+padding: 4px 2px 8px;
+scroll-behavior: smooth;
+}
+
+.filters-left::-webkit-scrollbar {
+display: none;
+}
+
+.filter {
+min-width: 58px;
+}
+
+.filter i {
+font-size: 1rem;
+}
+
+.filter p {
+font-size: 10px;
+white-space: nowrap;
+}
+
+.tax-toggle {
+width: 100%;
+margin: 8px 0 10px;
+padding: 8px 12px;
+font-size: 0.85rem;
+}
+
+/* Advanced filter box */
+.advanced-filter {
+width: 100%;
+margin-top: 10px;
+}
+
+.advanced-filter-form {
+width: 100%;
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 8px;
+border-radius: 16px;
+padding: 10px;
+}
+
+.filter-input,
+.filter-select {
+width: 100%;
+min-width: 0;
+max-width: 100%;
+background: #f8fafc;
+border-radius: 10px;
+font-size: 0.82rem;
+padding: 8px 10px;
+}
+
+.filter-select {
+grid-column: 1 / 2;
+}
+
+.filter-btn {
+grid-column: 2 / 3;
+width: 100%;
+padding: 8px 12px;
+font-size: 0.82rem;
+}
+
+.clear-filter-btn {
+grid-column: 1 / 3;
+width: 100%;
+text-align: center;
+padding: 6px 10px;
+font-size: 0.82rem;
+}
+
+/* Listing cards */
+.main-content > #filters,
+.main-content > #filters + .row {
+padding-left: 14px;
+padding-right: 14px;
+}
+
+.listing-card {
+margin-bottom: 1.2rem;
+}
+
+.card-img-top {
+height: 218px;
+}
+
+.card-title {
+font-size: 0.95rem;
+}
+
+.card-text {
+font-size: 0.9rem;
+}
+
+.wishlist-icon {
+width: 34px;
+height: 34px;
+top: 10px;
+right: 10px;
+}
+
+.rating-badge {
+font-size: 12px;
+padding: 5px 9px;
+}
+}
+
+
